@@ -1,0 +1,10 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/superwor/public_html/From_git
+    - /bin/cp index.html $DEPLOYPATH
+    - /bin/cp components/header.php $DEPLOYPATH
+    - /bin/cp components/navbar.php $DEPLOYPATH
+    - /bin/cp components/footer.php $DEPLOYPATH
+    - /bin/cp index.php $DEPLOYPATH
+    - /bin/cp components/ $DEPLOYPATH

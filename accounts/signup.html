@@ -1,0 +1,29 @@
+
+<!--sign-up form-->
+<div class="theform">
+   <form action="connections/processSignup.php" method="post" class="signupform">
+            <div class=inform>
+            <label for="username">Favourite Name:</label> </br>
+              <input type="text" name="username" placeholder="Favourite Name" value="<?php echo $_GET ['username'];?>">
+            </div>
+            <div class=inform>
+            <label for="email">Email:</label> </br>
+              <input type="text" name="email" placeholder="Email" value="<?php
+              if(isset($_GET['email'])){
+               echo $_GET['username'];}
+               ?>">
+            </div>
+            <div class=inform>
+            <label for="phone">Enter your phone number (10 digits):</label> </br>
+              <input type="number" name="phone" placeholder="Phone Number" value="<?php echo $_GET ['phone'];?>">
+            </div>
+            <div class=inform>
+            <label for="password">Create a password</label> </br>
+              <input type="password" name="password" placeholder="Create Password">
+            </div>
+            <div class=inform>
+            <label for="password2">Confirm your password:</label> </br>
+              <input type="password" name="password2" placeholder="Confirm Password">
+            </div>
+            <button type="submit" name="newsubmit" value="submit">Sign Up</button>
+   </form>

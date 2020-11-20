@@ -8,7 +8,7 @@ include_once 'parts/header.php';
       <div class="a" style="background-image:url(images/flower1.jpg);">
         <h2>Welcome</h2>
         <h2>To</h2>
-        <h2>Superworkmates</h2>
+        <h2>Superworkmates.com</h2>
         <h3>You Don't Have To Work Alone!</h3>
       </div>
 <!--log in-->

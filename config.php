@@ -1,4 +1,5 @@
 <?php
+//Class DB facilitates in database connnection
 class DB
 {
 

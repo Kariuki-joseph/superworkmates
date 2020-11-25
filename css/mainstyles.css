@@ -1,0 +1,250 @@
+body {margin: 20px;}
+.navbar {
+
+  color: red;
+  display :flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+}
+.greeting {
+text-align: center;
+padding: 30px;
+}
+
+.greeting .greeting-name {
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+background: linear-gradient(to right,white,rgba(255, 0, 102, 1),chartreuse,rgba(255, 0, 102, 1),white);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+display: inline;
+}
+
+.navbar a {margin: 10px;
+ border-bottom:  5px solid chartreuse;
+padding-bottom: 10px;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+color: chartreuse;
+font-weight: bold;
+
+}
+.navbar a:last-child {
+  border-bottom: none;
+}
+
+a {
+  text-decoration:none;
+
+}
+
+.pagetop {
+  background-color: black;
+}
+
+.sehemu2 {
+  display: flex;
+  flex-wrap: wrap;
+}
+.sehemu2 .a {
+  flex: 3;
+  border: 1px solid;
+  border-color: chartreuse;
+  margin-right: 1%;
+  height: auto;
+  background-image: url('./images/flower1.jpg');
+  background-position: center;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: center;
+  line-height: 3.0em;
+  
+}
+.sehemu2 .b {
+  flex: 1;
+  border: 1px solid;
+  border-color: chartreuse;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.b-image img {
+  width: 100%;
+}
+
+.a {
+  color: chartreuse;
+}
+
+.bb {
+  padding: 10px;
+}
+
+.b .b-image img {
+  padding: 0px;
+}
+
+.part3 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.p3a {
+flex: 1; 
+
+padding-right: 10px;
+animation-name: rangi1; 
+animation-duration: 5s;
+}
+
+.p3b {
+  flex: 1;
+  
+  padding-right: 10px;
+  animation-name: rangi2; 
+  animation-duration: 5s;
+}
+
+.part3 h2 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.part3 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.p4aa img {
+  width: 100%;
+}
+
+.p4ba img {
+  width: 100%;
+}
+
+.p4ca img {
+  width: 100%;
+}
+
+.p4 h4 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.p4 {
+  display: flex;
+  justify-content: space-between;
+  font-family: Georgia, 'Times New Roman', Times, serif ;
+}
+
+.p4 div {
+  border: solid chartreuse 1px;
+  padding: 3px;
+}
+
+.p4 div {
+  flex: 1;
+}
+
+.p4head h2 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.fmission {
+  text-align: center;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.mtitle {font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.f2 {
+  display: flex;
+  justify-content: space-between;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.f2p1 {
+  flex:1;
+  text-align: right;
+}
+
+.f2p2 {
+  flex:2;
+  text-align: center;
+}
+
+.f2p3 {
+  flex:1;
+  text-align: left;
+}
+
+.f3 {
+  text-align: center;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.footer {background-color: chartreuse;
+padding: 30px;}
+
+.fmission {
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 10px
+}
+
+hr {
+  border-color: rgba(255, 0, 102, 1);
+}
+
+@keyframes rangi1 {
+  0% {background-color: white;}
+  50% {background-color: pink;}
+  100% {background-color: white;}
+}
+
+@keyframes rangi2 {
+  0% {background-color: white;}
+  50% {background-color: pink;}
+  100% {background-color: white;}
+}
+
+/*****************************signup styles.css*********************/
+/*signup page styles*/
+.theform {
+  background-color: chartreuse;
+}
+
+
+.signupform {
+  background-color: pink;
+  align-self: center;
+}
+
+.signupform .label {
+  display: block;
+  padding: 30px;
+
+}
+
+
+.errortab {
+  background-color: salmon;
+
+}
+.sqlsignuperror {
+  color: blue;
+}
+.signuperror {
+  color: red;
+}
+
+.signupsuccess {
+  color: green;
+}
+
+
+
+.button {
+  background-color: blueviolet;
+  color: white;
+  width: 240px;
+  height: 30px;
+  border-radius: 30px;
+  margin: 10px;
+}

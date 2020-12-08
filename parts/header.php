@@ -49,8 +49,18 @@ session_start();
              <!-- <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">class</i> Learn </div> </a> -->
               <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">tour</i> Places </div> </a>
               <a href="trends.php"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">timeline</i> Trends </div> </a>
-              <a href="#" data-toggle="popover" data-content="Login or create an account"
-              data-placement="bottom">
+              <a href="#"
+              data-toggle="popover"
+              data-html="true" 
+              data-content="
+              <ul class='list-group list-group-flush'>
+                <li class='list-group-item btn'>Login</li>
+                <li class='list-group-item btn'>Register</li>
+              </ul>
+              "
+              data-placement="bottom"
+              data-trigger="focus"
+               >
                 <i class="fa fa-user-o fa-lg"></i> My Account
               </a>
               <a href="#"> <div class = "sehemu1"> &#9776 </div> </a>

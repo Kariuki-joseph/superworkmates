@@ -74,8 +74,43 @@ if (isset($_GET['params'])) {
                   <td>" .$item->getTime() ."</td>
                   
               <tr>";
-?>
-
-<?php
+}elseif (isset($_GET['loadAll'])) {
+	?>
+	<caption><h2>Price List &copy; Bizvick Venturez</h2></caption>
+      <tr class="table-header"> 
+          <div class="thead">
+            <th>Item ID</th>
+            <th>Category</th>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Quality</th>
+            <th>Description</th>
+            <th>Place</th>
+            <th>Seller</th>
+            <th>Date and Time</th>
+          </div>
+        </tr>
+	<?php
+	$sql = "SELECT * FROM theproducts";
+	$query = mysqli_query($connect,$sql);
+	while ($row = mysqli_fetch_array($query)) {
+	$item = new Item($row['id']);
+	echo "<tr class='table-row'> 
+                  <td>" .$item->getId() ."</td> 
+                  <td>" .$item->getCategory() ."</td>
+                  <td id='itemName'>" .$item->getName() ."</td>
+                  <td>"."KSh" ." " .number_format($item->getPrice(),2) ."</td>
+                  <td>" .number_format($item->getQuantity(),1) ."</td>
+                  <td>" ."KSh" ." " .number_format($item->getUnitPrice(),2) . " "."per" ." " .$item->getUnit() ."</td>
+                  <td>" .$item->getQuality() ."</td>
+                  <td>" .$item->getDescription() ."</td>
+                  <td>" .$item->getLocation() ."</td>
+                  <td>" .$item->getSeller() ."</td>
+                  <td>" .$item->getTime() ."</td>
+                  
+              <tr>";
+}
 }
 ?>

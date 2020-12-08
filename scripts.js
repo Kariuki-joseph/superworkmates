@@ -114,6 +114,14 @@ for(let i=0; i<rows.length; i++){
 	});
 }
 }
+
+//load row items
+function loadAllRowItems() {
+	fetch('search.php?loadAll=true').then(response=>response.text())
+	.then(response=>{
+	_('.pricelistable').innerHTML=response;
+	}).catch(err=>console.log(err));
+}
 //////////////////////////////funtions/////////////
 //upload image
 const images=[];
@@ -277,8 +285,12 @@ $('#search').on('keypress keydown keyup',(e)=>{
 	let searchStr = _('#search').value;
 if (searchStr.length == 0 || searchStr == ' ') {
 	$('#search_results').html('');
+	if (e.key == 'Backspace' && searchStr.length == 0) {
+		loadAllRowItems();
+ }
 	return;
 }
+
 //get filters
 let searchParams={};
 searchParams.search=$('#search').val();

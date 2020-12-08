@@ -4,7 +4,10 @@ $('[data-toggle="popover"]').popover();
 function _(elem){
 	return document.querySelector(elem);
 }
-
+//selector All
+function _A(elem){
+	return document.querySelectorAll(elem);
+}
 function getTrendsHtml(id){
 xmlHttp = new XMLHttpRequest();
 	xmlHttp.open("GET","formUpdateTrends.html",true);
@@ -85,6 +88,32 @@ let index = array.indexOf(value);
 function arrayAdd(array,value) {
 	
 }
+
+//display carousel with images
+function displayCarouselOnItemClick(){
+	let rows = document.querySelectorAll('.table-row');
+for(let i=0; i<rows.length; i++){
+	rows[i].addEventListener('click',(e)=>{
+		let itemId = rows[i].childNodes[1].innerText;
+		//name of the item at nodelist 5
+		let itemName = rows[i].childNodes[5].innerText;
+		//fetch images
+		let imageUrl = 'fetchImages.php?id='+itemId;
+		fetch(imageUrl).then(response=>response.text())
+		.then(response=>{
+			 
+			//carousel items
+			_('#carouselImageViewInner').innerHTML=response;
+		})
+		.catch(err=>console.log(err));
+		
+		//open modal
+		_('#btnModalImageView').click();
+		_('#btnModalImageViewHeader').innerHTML=itemName;
+
+	});
+}
+}
 //////////////////////////////funtions/////////////
 //upload image
 const images=[];
@@ -144,29 +173,7 @@ _('#formAddPricelistEntry').addEventListener('submit',(e)=>{
 });
 
 //click event to row items
-let rows = document.querySelectorAll('.table-row');
-for(let i=0; i<rows.length; i++){
-	rows[i].addEventListener('click',(e)=>{
-		let itemId = rows[i].childNodes[1].innerText;
-		//name of the item at nodelist 5
-		let itemName = rows[i].childNodes[5].innerText;
-		//fetch images
-		let imageUrl = 'fetchImages.php?id='+itemId;
-		fetch(imageUrl).then(response=>response.text())
-		.then(response=>{
-			 
-			//carousel items
-			_('#carouselImageViewInner').innerHTML=response;
-		})
-		.catch(err=>console.log(err));
-		
-		//open modal
-		_('#btnModalImageView').click();
-		_('#btnModalImageViewHeader').innerHTML=itemName;
-
-	});
-}
-
+displayCarouselOnItemClick();
 
 //location and categories filters
 let locationFilters=[];
@@ -266,7 +273,12 @@ switch(chkboxLoc[0].checked){
 });
 
 //items searching
-$('#search').on('keyup',()=>{
+$('#search').on('keypress keydown keyup',(e)=>{
+	let searchStr = _('#search').value;
+if (searchStr.length == 0 || searchStr == ' ') {
+	$('#search_results').html('');
+	return;
+}
 //get filters
 let searchParams={};
 searchParams.search=$('#search').val();
@@ -277,9 +289,29 @@ searchParams.categories=categoriesFilters;
 let SEARCH_URL = "search.php?params="+JSON.stringify(searchParams);
 fetch(SEARCH_URL).then(response=>response.text())
 .then(response=>{
-console.log(response);
+//display
+$('#search_results').html(response);
+//click for each result item
+let results = _A('#search_results li');
+for(let x=0; x<results.length; x++){
+results[x].addEventListener('click',(e)=>{
+$('#search_results').empty();
+let itemId = e.target.getAttribute('data-id');
+//fetch
+let SEARCH_URL = "search.php?id="+itemId;
+fetch(SEARCH_URL).then(response=>response.text())
+.then(response=>{
+//display filtered data
+_('.pricelistable').innerHTML=response;
+displayCarouselOnItemClick();
+}).catch(err=>console.log(err));
+});
+}
 }).catch(err=>console.log(err));
 });
 
 //check any by default
-click($('#filterFormCategories input')[0]);
+// click($('#filterFormCategories input')[0]);
+
+
+

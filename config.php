@@ -87,6 +87,7 @@ class Item extends DB{
 			if (mysqli_num_rows($query)>0) {
 				$row = mysqli_fetch_array($query);
 				//set values
+				$this->id = $row['id'];
 				$this->itemName = $row['item'];
 				$this->category = $row['category'];
 				$this->price = $row['price'];
@@ -109,6 +110,9 @@ class Item extends DB{
 	}
 
 	//getters
+	function getId(){
+		return $this->id;
+	}
 	function getName(){
 		return $this->itemName;
 	}
@@ -122,13 +126,13 @@ class Item extends DB{
 		return $this->quantity;
 	}
 	function getUnitPrice(){
-		return $this->init_price;
+		return $this->unit_price;
 	}
 	function getUnit(){
 		return $this->unit;
 	}
 	function getQuality(){
-		return $this->qulity;
+		return $this->quality;
 	}
 	function getDescription(){
 		return $this->description;

@@ -28,7 +28,7 @@ include_once 'config.php';
 </div>
 
 <div class="row">
-  <div class="container-fluid">
+  <div class="container-fluid" style="position: absolute;">
     <ul id="search_results" class="list-unstyled ml-2 mr-2 search-results">
     </ul>
   </div>

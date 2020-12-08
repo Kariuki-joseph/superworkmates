@@ -1,4 +1,11 @@
 <?php
+$data = $_POST['filePath'];
+die($data);
+if($data != null){
+die("Respoonse from the server is this");
+}else{
+	die("Not really");
+}
 require_once 'dbconnect.php';
 
 $sql = "SELECT * FROM theusers";

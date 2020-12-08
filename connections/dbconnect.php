@@ -1,9 +1,9 @@
 <?php
 //params to connect to a database
-    $dbHost = "host31";
-    $dbUser = "superwor_admin";
-    $dbPass = "5 Potatoex1";
-    $dbName = "superwor_mainusers";
+    $dbHost = "localhost";
+    $dbUser = "root";
+    $dbPass = "";
+    $dbName = "mainusers";
 //connection to database
 $connect = mysqli_connect($dbHost, $dbUser, $dbPass, $dbName);
 

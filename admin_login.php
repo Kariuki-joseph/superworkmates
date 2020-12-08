@@ -17,12 +17,12 @@ include ('components/header.php');
 <div class="form-group">
 		<label><b>Email</b></label>
 		<input type="email" name="email" class="form-control" placeholder="Email">
-	</div>
+</div>
 	
 <div class="form-group">
 		<label><b>Password</b></label>
 		<input type="password" name="password" class="form-control" placeholder="Password">
-	</div>
+</div>
 <input type="submit" name="login_admin" value="Login">
 </form>
 </div>

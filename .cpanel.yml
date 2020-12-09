@@ -1,0 +1,6 @@
+---
+deployment:
+ tasks:
+ - export DEPLOYPATH=/home/superwor/public_html/cp
+ - /bin/cp index.php $DEPLOYPATH
+ - /bin/cp scripts.js $DEPLOYPATH

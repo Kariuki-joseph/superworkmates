@@ -170,9 +170,9 @@ _('#formAddPricelistEntry').addEventListener('submit',(e)=>{
 	.then(text=>{
 	$('#response_body').html(text);
 	//close after 5 seconds
-	setTimeout(function(){
-		$('#modalResponse').modal('hide');
-	},4000);
+	// setTimeout(function(){
+	// 	$('#modalResponse').modal('hide');
+	// },4000);
 	//reset the form
 	_('#formAddPricelistEntry').reset.click();
 	}).catch(err=>{

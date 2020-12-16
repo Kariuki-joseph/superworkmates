@@ -1,8 +1,8 @@
 ---
 deployment:
  tasks:
- - export DEPLOYPATH=/home/superwor/public_html
+ - export DEPLOYPATH=/home/superwor/public_html/cp
  - /bin/cp index.php $DEPLOYPATH
  - /bin/cp pricelist.php $DEPLOYPATH
  - /bin/cp scripts.js $DEPLOYPATH
- - /bin/cp connections $DEPLOYPATH
+ - /bin/cp connections/* $DEPLOYPATH

@@ -1,28 +1,5 @@
 <?php
-class DB
-{
-
-public $connect;
-function __construct(){
-	// $this->connect=mysqli_connect('host31','superwor_joel','5 Potatoes1','superwor_superworkmates');
-	$this->connect=mysqli_connect('localhost','root','','superworkmates');
-
-	if (!$this->connect) {
-		echo "Unable to connect to the server".mysqli_connect_error();
-	}
-}
-public static function conn(){
-	return mysqli_connect('localhost','root','','superworkmates');
-}
-public static function connMainUsers(){
-	return mysqli_connect('localhost','root','','mainusers');
-}
-}
-class MainUsers{
-	static function conn(){
-		return mysqli_connect('localhost','root','','mainusers');;
-	}
-}
+include('classes/db.php');
 //trends
 class Trends extends DB{
 function getAllTrends(){
@@ -154,7 +131,7 @@ class Item extends DB{
 //////////////////////////searching//////////////////
 class Search{
 	function __construct($sql){
-	$query = mysqli_query(DB::connMainUsers(),$sql);
+	$query = mysqli_query(MainUsers::conn(),$sql);
 	$this->searchResults = $query;
 	// die(mysqli_num_rows($query));
 	}

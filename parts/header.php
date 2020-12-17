@@ -49,26 +49,64 @@ session_start();
              <!-- <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">class</i> Learn </div> </a> -->
               <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">tour</i> Places </div> </a>
               <a href="trends.php"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">timeline</i> Trends </div> </a>
-              <a href="#"
-              data-toggle="popover"
-              data-html="true" 
-              data-content="
-              <ul class='list-group list-group-flush'>
-                <li class='list-group-item btn'>Login</li>
-                <li class='list-group-item btn'>Register</li>
-              </ul>
-              "
-              data-placement="bottom"
-              data-trigger="focus"
-               >
-                <i class="fa fa-user-o fa-lg"></i> My Account
+              <a href="#" data-toggle="dropdown" >
+              <i class="fa fa-user"></i> My Account
+              <div class="dropdown">
+                <ul class="dropdown-menu">
+                  <li class="dropdown-item" onclick="login()">Login</li>
+                  <li class="dropdown-divider"></li>
+                  <li class="dropdown-item" onclick="register()">Register</li>
+                </ul>
+              </div>
               </a>
-              <a href="#"> <div class = "sehemu1"> &#9776 </div> </a>
+              <a href="#"> <div class = "sehemu1"> &#9776 </div> </>
               
           </div>
 
           
 
+    </div>
+    <div class="modal fade" id="modal_login" role="modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+          <h3 class="text-center"></h3>
+          </div>
+          <div class="modal-body">
+          <div class="row">
+            <div class="container">
+              <form action="" method="POST">
+                <div class="form-group">
+                 <label>Phone/Email</label>
+                  <input type="text" name="email_phone" placeholder="Email/Phone" class="form-control">
+                </div>
+                <div class="form-group">
+                 <label>Password</label>
+                  <input type="password" name="password" placeholder="Password" class="form-control">
+                </div>
+                <div class="form-group">
+                  <button type="submit" name="login"><i class="fa fa-sign-in"></i> Login</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modal_register">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
     </div>
 
     

@@ -78,32 +78,41 @@ include_once 'parts/header.php';
       <h2>Trends</h2>
   </div>
 
-  <div class="p4">
-    <div class="p4a">
-      <div class="p4aa">
-        <h4>Trend 1</h4>
-        <img src="./images/blue.jpg" alt="image missing">
-        <p>Start Now. The future has began!</p> 
-      </div>
-    </div>
-
-    <div class="p4b">
-      <div class="p4ba">
-        <h4>Trend 2</h4>
-        <img src="./images/flower.jpg" alt="image missing"> 
-        <p>For guidance on personal, business and social projects - Superworkmates is the place!</p>
-      </div>
-    </div>
-
-    <div class="p4c">
-      <div class="p4ca">
-        <h4>Trend 3</h4>
-        <img src="./images/lights.jpg" alt="Image missing">
-        <p>Stronger Together</p>
-      </div>
-    </div>
-
+<div class="carousel slide" data-ride="carousel" id="carousel_trends">
+  <div class="carousel-inner">
+  <div class="carousel-item active">
+  <img src="images/flower1.jpg" alt="Image missing" class="d-block w-100">
+  <div class="carousel-caption">
+  <h3>Trend 1</h3>
+  <p>Start Now. The future has began!</p>
   </div>
+  </div>
+  <div class="carousel-item">
+  <img src="images/lights.jpg" alt="Image missing" class="d-block w-100">
+  <div class="carousel-caption">
+  <h3>Trend 2</h3>
+  <p>For guidance on personal, business and social projects - Superworkmates is the place!</p>
+  </div>
+  </div>
+  <div class="carousel-item">
+  <img src="images/flower.jpg" alt="Image missing" class="d-block w-100">
+  <div class="carousel-caption">
+  <h3>Trend 3</h3>
+  <p>Stronger Together!</p>
+  </div>
+  </div>
+<!--carousel controls-->
+<a href="#carousel_trends" class="carousel-control-next" data-slide="next">
+<span class="carousel-control-next-icon" aria-hidden="true"></span>
+<span class="sr-only">Next</span>
+</a>
+<a href="#carousel_trends" class="carousel-control-prev" data-slide="prev">
+<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+<span class="sr-only">Previous</span>
+</a>
+</div>
+
+</div>
 
 </div>
 

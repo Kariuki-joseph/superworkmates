@@ -20,7 +20,7 @@
               
               $stmt = mysqli_stmt_init($connect);
               if(!mysqli_stmt_prepare($stmt,$inquery)) {
-                  header ("Location: ../pricelist.php?=sqlregerror");
+                die('An error occurred while preparing your request');
                   exit();
               }
        

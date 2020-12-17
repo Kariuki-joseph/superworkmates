@@ -325,5 +325,11 @@ displayCarouselOnItemClick();
 //check any by default
 // click($('#filterFormCategories input')[0]);
 
-
+//login and register
+function login(){
+	$('#modal_login').modal('show');
+}
+function register(){
+	$('#modal_register').modal('show');
+}
 

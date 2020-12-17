@@ -79,3 +79,6 @@ $retrieve=mysqli_query($connect,"SELECT * FROM trends ORDER BY time DESC");
 		
 	}
 </script>
+<?php
+include 'parts/footer.php';
+?>

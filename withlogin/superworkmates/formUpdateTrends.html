@@ -1,0 +1,32 @@
+
+<form method="POST" action="processPosts.php" enctype="multipart/form-data">
+<div class="form-group">
+		<label>Author</label>
+		<input type="text" name="author" value="" class="form-control" id="author">
+	</div>
+	<div class="form-group">
+		<label>Title</label>
+		<input type="text" name="title" value="" class="form-control" id="title">
+	</div>
+	<div class="form-group">
+		<label>Message content</label>
+		<textarea class="form-control" name="body" id="message"></textarea>
+	</div>
+	<input type="submit" name="update" value="Update this post" class="btn btn-warning">
+	<input type="hidden" name="deleteId" value="" id="deleteId">
+	<input type="submit" name="deleteTrend" value="Delete this post" class="btn btn-danger m-2">
+</form>
+
+<form method="POST" action="processPosts.php" enctype="multipart/form-data">
+		<label>Update photos</label><br>
+		<input type="file" name="image"><br><br>
+		<input type="submit" name="updateImage1" value="Update" class="btn btn-warning mb-3">
+		</form>
+
+		<form method="POST" action="processPosts.php" enctype="multipart/form-data">
+		<input type="file" name="image2"><br><br>
+		<input type="submit" name="updateImage2" value="Update" class="btn btn-warning mb-3">
+		</form>
+		
+
+<script src="scripts.js"></script>

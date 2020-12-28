@@ -1,4 +1,6 @@
 <?php
+session_start();
+include_once 'connections/dbconnect.php';
 if (isset ($_POST ['submitnow'])) {
   $file = $_FILES['file'];
 
@@ -7,20 +9,32 @@ if (isset ($_POST ['submitnow'])) {
   $fileType =$_FILES['file']['type'];
   $fileSize =$_FILES['file']['size'];
   $fileError =$_FILES['file']['error'];
-
   $fileExt = explode ('.' , $fileName);
   $fileActualExt = strtolower (end($fileExt));
-
   $allowed = array('jpg', 'jpeg', 'png', 'gif');
 
   if (in_array ($fileActualExt, $allowed)) {
      if ($fileError === 0) {
          if ( $fileSize <10485760) {
-             $fileNewName = uniqid ('', true). "." .$fileActualExt;
-             $fileDestination = 'profileimages/'.$fileNewName;
+            $uid = $_SESSION ['userid'];
+             //$fileNewName = "profileimages/".uniqid ('', true). "." .$fileActualExt;
+             $fileNewName = "profileimages/".$uid. "." .$fileActualExt;
+             //die($fileNewName);
+             $fileDestination = $fileNewName;
              move_uploaded_file ($fileTempName, $fileDestination);
 
-             header ("Location: myprofile.php?upload=success");
+            $uid = $_SESSION['userid'];
+$profpic = "UPDATE theusers SET profpic = '$fileNewName' WHERE id = '$uid'";
+// die($profpic);  
+// $stmt = mysqli_stmt_init ($connect);
+//         if (!mysqli_stmt_prepare( $stmt, $profpic)) {
+//             header ("Location: ../index.php?error=sqlerror");
+//             exit();
+//         }
+if (!mysqli_query($connect,$profpic)) {
+    header ("Location: ../index.php?error=sqlerror");
+}
+             header ("Location: index.php");
             
          } else {
             echo '<p style= "color:red;"> File size must not be more than 10 mbs. <br> Please try uploading another file!</p>';
@@ -36,3 +50,4 @@ if (isset ($_POST ['submitnow'])) {
   }
 
 }
+

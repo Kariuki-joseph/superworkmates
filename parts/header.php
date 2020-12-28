@@ -48,7 +48,7 @@ session_start();
     
 <!--navbar-->    
       <div class = "navbar">
-              <a href="../index.php"> <div class = "sehemu1"><i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">home</i> Home </div> </a>
+              <a href="index.php"> <div class = "sehemu1"><i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">home</i> Home </div> </a>
               <a href="myOffice.php"> <div class = "sehemu1"><i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">work</i> My Office </div> </a>
               <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">build</i> Projects </div> </a> 
               <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">groups</i> Workmates </div> </a>

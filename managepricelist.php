@@ -1,3 +1,11 @@
+<?php
+include_once 'parts/header.php';
+if (!isset($_SESSION['username'])) {
+  header ("Location: loginorsignup.php");
+  exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="eng">
   
@@ -9,7 +17,7 @@
 </head>
 <body>
 <?php
-include_once 'parts/header.php';
+
 ?>
 <a href="pricelist.php"> <button> Price List </button> </a>
 </br>

@@ -1,6 +1,5 @@
 <?php
 if (isset($_POST['productsubmit'])) {
-  if (isset ($_SESSION ['username'])) {
   //add db connection
   require_once 'dbconnect.php';
 
@@ -55,13 +54,9 @@ mysqli_close ($connect);
  // }
  // else {echo 'ERROR:' .mysqli_error($connect);}
  }
- }
-else { /*echo "Button Issues";*/
-       header ("Location: ../products.php");
-       exit();
+
 }
-else { /*echo "Button Issues";*/
-  header ("Location: ../products.php");
+else {header ("Location: ../pricelist.php");
   exit();
 }
 ?>

@@ -10,12 +10,5 @@
         <input type="file" name="file">
         <button type="submit" name="submitnow">Upload</button>
     </form>
-<?php
-    require_once 'getimage.php';
-    echo'
-
-<img src="profileimages/$fileNewName" alt="No Image found!">
-';
-?>
 </body>
 </html>

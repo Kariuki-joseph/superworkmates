@@ -105,8 +105,15 @@ if (isset($_POST['newsubmit'])) {
                     header ("Location:../index.php?error=none");
 //                    exit();
 
+                $getuserid = "SELECT id FROM theusers WHERE email = '$email'";
+                $query = mysqli_query ($connect, $getuserid);
+                $result = mysqli_fetch_array($query);
+                $userid = $result['id'];
+
                     session_start();
                     $_SESSION['username'] = $username;
+                    $_SESSION['userid'] = $userid;
+        
 
                     exit();
 

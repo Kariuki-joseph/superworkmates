@@ -45,10 +45,10 @@ if (isset ($_GET['error'])) {
         echo '<p class="sqlsignuperror">Sorry, something went wrong. Our developers are working on it</p>';
     }
     elseif ($_GET['error'] == "none") {
-        echo '<p class="signupsucess"> <strong>You Have Successfully Registered.</br>Welcome</strong></p>';
+        echo '<p class="signupsucess"> <strong>You Have Successfully Registered.Welcome</strong></p>';
         }
     elseif ($_GET['error'] == "phone-exists") {
-      echo '<p class="signuperror">The <strong>phone number</strong> you entered already exists.</br>Please check the number and try again.<br>If you already have an account, please <a href="index.php">log in</a> instead.</p>';
+      echo '<p class="signuperror">The <strong>phone number</strong> you entered already exists.Please check the number and try again.<br>If you already have an account, please <a href="index.php">log in</a> instead.</p>';
       }
     elseif ($_GET['error'] == "phonedigitsnot10") {
       echo '<p class="signuperror">Please make sure the <strong>phone number</strong> you entered has all 10 digits.</p>';
@@ -63,55 +63,39 @@ if (isset ($_GET['error'])) {
 <div class="theform">
    <form action="connections/processSignup.php" method="post" class="signupform">
             <div class=inform>
-            <label for="username">Favourite Name:</label> </br>
+            <label for="username">Favourite Name:</label> 
               <input type="text" name="username" placeholder="Favourite Name" value="<?php
                     if(isset($_GET['username'])){
                     echo $_GET['username'];}
                     ?>">
             </div>
             <div class=inform>
-            <label for="email">Email:</label> </br>
+            <label for="email">Email:</label> 
               <input type="text" name="email" placeholder="Email" value="<?php
                     if(isset($_GET['email'])){
                     echo $_GET['email'];}
                     ?>">
             </div>
             <div class=inform>
-            <label for="phone">Enter your phone number (10 digits):</label> </br>
+            <label for="phone">Enter your phone number (10 digits):</label> 
               <input type="number" name="phone" placeholder="Phone Number" value="<?php
                     if(isset($_GET['phone'])){
                     echo $_GET['phone'];}
                     ?>">
             </div>
             <div class=inform>
-            <label for="password">Create a password</label> </br>
+            <label for="password">Create a password</label> 
               <input type="password" name="password" placeholder="Create Password">
             </div>
             <div class=inform>
-            <label for="password2">Confirm your password:</label> </br>
+            <label for="password2">Confirm your password:</label> 
               <input type="password" name="password2" placeholder="Confirm Password">
             </div>
-            <br>
+            <br>  
             <button type="submit" name="newsubmit" value="submit">Sign Up</button>
    </form>
 </div>
 <!--Fetching From Database-->
-<?php
-
-$sql = "SELECT * FROM theusers";
-$result = mysqli_query($connect,$sql);
-$rowCount = mysqli_num_rows($result);
-
-if ($rowCount > 0) { while ($row = mysqli_fetch_assoc($result)) {
-    echo $row ['username'];
-}
-   
-} else {
-    echo "Nothing Found";
-}
-echo '<p>nice nice</p>'
-?>
-
 
 <?php
 include_once 'parts/footer.php';

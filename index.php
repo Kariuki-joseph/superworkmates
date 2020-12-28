@@ -30,11 +30,11 @@ include_once 'parts/header.php';
 <?php
 
   if (isset ($_SESSION ['username'])) {
-    include_once 'loggedin.html';
+    include_once 'loggedin.php';
     
   }
   else {
-   include_once 'loginorsignup.html';
+   include_once 'loginorsignup.php';
   }
   ?>
 

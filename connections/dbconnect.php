@@ -3,7 +3,7 @@
     // $dbHost = "localhost";
     // $dbUser = "root";
     // $dbPass = "";
-    // $dbName = "mainusers";   
+    $dbName = "mainusers";   
     $dbHost = "host31";
     $dbUser = "superwor_admin";
     $dbPass = "5 Potatoex1";

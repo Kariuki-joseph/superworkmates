@@ -3,10 +3,10 @@ deployment:
   tasks:
   - export DEPLOYPATH=/home/superwor/public_html
   - /bin/cp -r connections/ $DEPLOYPATH
-  - /bin/cp -r css/** $DEPLOYPATH
-  - /bin/cp -r images/** $DEPLOYPATH
-  - /bin/cp -r parts/** $DEPLOYPATH
-  - /bin/cp -r profileimages/** $DEPLOYPATH
+  - /bin/cp -r css/ $DEPLOYPATH
+  - /bin/cp -r images/ $DEPLOYPATH
+  - /bin/cp -r parts/ $DEPLOYPATH
+  - /bin/cp -r profileimages/ $DEPLOYPATH
   - /bin/cp -r getimage.php $DEPLOYPATH
   - /bin/cp -r index.php $DEPLOYPATH
   - /bin/cp -r loggedin.php $DEPLOYPATH

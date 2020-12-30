@@ -37,16 +37,19 @@ if (!mysqli_query($connect,$profpic)) {
              header ("Location: index.php");
             
          } else {
-            echo '<p style= "color:red;"> File size must not be more than 10 mbs. <br> Please try uploading another file!</p>';
+            $_SESSION['error']='File size must not be more than 10 mbs. <br> Please try uploading another file!';
+            header ("Location: index.php");
          }
          
      } else {
-        echo '<p style= "color:red;"> There was an error uploading your file. <br> Please try uploading another file!</p>';
+        $_SESSION['error']='There was an error uploading your file. <br> Please try uploading another file!';
+        header ("Location: index.php");
      }
      
   }
   else {
-      echo '<p style= "color:red;"> Only .jpg, .jpeg, .png, and .gif images are allowed.</p>';
+    $_SESSION['error']='Only .jpg, .jpeg, .png, and .gif images are allowed.';
+      header ("Location: index.php");
   }
 
 }

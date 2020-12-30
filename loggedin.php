@@ -22,9 +22,16 @@
             <img src="<?php echo $imagename;?>" alt="No Image Found">
         </div>
         <?php
+        if (isset($_SESSION['error'])) {
+        ?>
+<p style= "color:red;"><?php echo $_SESSION['error']; unset($_SESSION['error']);?>;</p>
+        <?php
+        }
+        ?>
+        <?php
         if ($result['profpic'] == 'profileimages/user.png') {
         ?>
-        <h4 style="cursor: pointer;" onclick="openUploadForm()">Upload Profile Picture</h4>
+        <h4 id = "texgdbfb" style="cursor: pointer;" onclick="openUploadForm()">Upload Profile Picture</h4>
         <form id="formUploadProfilePic" action="getimage.php" method="POST" enctype="multipart/form-data" class="hide">
             <input type="file" name="file"> <br> <br>
             <button type="submit" name="submitnow">Upload</button>
@@ -32,7 +39,7 @@
         <?php
         }else{
         ?>
-            <h4 style="cursor: pointer;" onclick="openChangeForm()">Change Profile Picture</h4>
+            <h4 id = "texgdbfb" style="cursor: pointer;" onclick="openChangeForm()" onmouseover="changeBackground('purple')">Change Profile Picture</h4>
             <form id="formChangeProfilePic" action="getimage.php" method="POST" enctype="multipart/form-data" class="hide">
                 <input type="file" name="file"> <br> <br>
             <button type="submit" name="submitnow">Change</button>
@@ -49,5 +56,9 @@ function openUploadForm(){
 }
 function openChangeForm(){
     document.getElementById('formChangeProfilePic').classList.toggle('hide');
+}
+function changeBackground(color){
+    document.querySelectorAll('#texgdbfb')[0].style.color=color;
+    document.querySelectorAll('#texgdbfb')[1].style.color=color;
 }
 </script>

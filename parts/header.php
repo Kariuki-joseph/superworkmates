@@ -42,7 +42,9 @@ session_start();
       
       <div class = "topbar">
         <div class = "top">
-          <h1 class="greeting">Superworkmates</h1>
+          <div class = "greeting">
+            <h1 class="greeting-name">Superworkmates</h1>
+          </div>
         </div>
     </div>
     

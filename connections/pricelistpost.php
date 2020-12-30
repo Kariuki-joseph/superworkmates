@@ -1,5 +1,4 @@
 <?php
-if (isset($_POST['productsubmit'])) {
   //add db connection
   require_once 'dbconnect.php';
 
@@ -48,5 +47,5 @@ if (isset($_POST['productsubmit'])) {
           
 mysqli_stmt_close ($stmt);
 mysqli_close ($connect);
-                }
+                
 ?>

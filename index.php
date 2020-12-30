@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="eng">
   
-<head>      
-<link rel="stylesheet" href="css/mainstyles.css">
-<title> Superworkmates: You Don't Have to Work Alone! </title>
-
+ <head>
+    <title> Superworkmates: You Don't Have To Work Alone! </title>
+    <link rel="stylesheet" href="css/mainstyles.css">
+    
 
 </head>
+
 <body>
 <?php
 include_once 'parts/header.php';
+// include_once 'home.html';
 ?>
       
 
@@ -38,6 +40,30 @@ include_once 'parts/header.php';
   }
   ?>
 
+        <div class="bb">
+          <h4>Log In</h4>
+
+
+            <form action="connections/processLogin.php" method="POST" class="theloginform">
+              <label for="userid">Phone or Email:</label> </br>
+              <input type="text" name="userid" class="weka1 form-control" placeholder="Phone/Email">
+              </br>
+              </br>
+              <label for="password">Password:</label> </br>
+              <input type="password" name="password" class="weka2 form-control">
+              </br>
+              </br>
+                <input type="submit" name="submit" value="Log In" class="btn btn-primary">
+              </br>
+        </form>
+    <!--Sign Up-->
+          <h4>Sign Up</h4>
+          <a href="signup.php"> <button class="btn btn-primary">Create Account</button> </a>
+        </div>
+      </div>
+    </div>
+
+
 <!--Part 3-->
 <div class="part3"> 
   <div class="p3a">
@@ -53,7 +79,7 @@ include_once 'parts/header.php';
     <h2>About Us</h2>
     <div class="p3btext">
       <p>We believe that each of our expertise, knowledge and daily experiences put together productively are the builders of a better tomorrow.</p>
-      <a href="about.php"> <button>Read More</button> </a>
+      <a href="about.php"> <button class="btn btn-warning">Read More <i class="fa fa-caret-right"></i><i class="fa fa-caret-right"></i></button> </a>
     </div>
   </div>
   
@@ -64,33 +90,41 @@ include_once 'parts/header.php';
   <div class="p4head">
       <h2>Trends</h2>
   </div>
-
-  <div class="p4">
-    <div class="p4a">
-      <div class="p4aa">
-        <h4>Trend 1</h4>
-        <img src="./images/blue.jpg" alt="image missing">
-        <p>Start Now. The future has began!</p> 
-      </div>
-    </div>
-
-    <div class="p4b">
-      <div class="p4ba">
-        <h4>Trend 2</h4>
-        <img src="./images/flower.jpg" alt="image missing"> 
-        <p>For guidance on personal, business and social projects - Superworkmates is the place!</p>
-      </div>
-    </div>
-
-    <div class="p4c">
-      <div class="p4ca">
-        <h4>Trend 3</h4>
-        <img src="./images/lights.jpg" alt="Image missing">
-        <p>Stronger Together</p>
-      </div>
-    </div>
-
+<div class="carousel slide" data-ride="carousel" id="carousel_trends">
+  <div class="carousel-inner">
+  <div class="carousel-item active">
+  <img src="images/flower1.jpg" alt="Image missing" class="d-block w-100">
+  <div class="carousel-caption">
+  <h3>Trend 1</h3>
+  <p>Start Now. The future has began!</p>
   </div>
+  </div>
+  <div class="carousel-item">
+  <img src="images/lights.jpg" alt="Image missing" class="d-block w-100">
+  <div class="carousel-caption">
+  <h3>Trend 2</h3>
+  <p>For guidance on personal, business and social projects - Superworkmates is the place!</p>
+  </div>
+  </div>
+  <div class="carousel-item">
+  <img src="images/flower.jpg" alt="Image missing" class="d-block w-100">
+  <div class="carousel-caption">
+  <h3>Trend 3</h3>
+  <p>Stronger Together!</p>
+  </div>
+  </div>
+<!--carousel controls-->
+<a href="#carousel_trends" class="carousel-control-next" data-slide="next">
+<span class="carousel-control-next-icon" aria-hidden="true"></span>
+<span class="sr-only">Next</span>
+</a>
+<a href="#carousel_trends" class="carousel-control-prev" data-slide="prev">
+<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+<span class="sr-only">Previous</span>
+</a>
+</div>
+
+</div>
 
 </div>
 
@@ -99,5 +133,3 @@ include_once 'parts/header.php';
 <?php
 include_once 'parts/footer.php';
 ?>
-</body>
-</html>

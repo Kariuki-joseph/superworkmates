@@ -14,6 +14,8 @@ if (isset($_POST['newsubmit'])) {
     $phonenumbercount = mb_strlen((string) $phone);
     $passLength = mb_strlen((string) $pass1);
 
+   // $hashedpassword = password_hash ($pass1, PASSWORD_DEFAULT);
+    # code...,
  if (empty($username) || empty($email) || empty($phone) || empty($pass1) || empty($pass2)) {
         header ("Location: ../signup.php?error=emptyfields&username=".$username."&email=".$email."&phone=".$phone);
         exit();

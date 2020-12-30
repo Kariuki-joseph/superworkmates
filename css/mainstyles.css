@@ -52,7 +52,7 @@ a {
   border-color: chartreuse;
   margin-right: 1%;
   height: auto;
-  background-image: url('./images/together.jpg');
+  background-image: url('./images/flower1.jpg');
   background-position: center;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   text-align: center;
@@ -225,6 +225,13 @@ hr {
 .signupform label {
   display: block;
   padding: 5px;
+/*****************************signup styles.css*********************/
+/*signup page styles*/
+
+.signupform{
+  background-color: pink;
+  align-self: center;
+}
 
 }
 

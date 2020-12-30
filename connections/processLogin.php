@@ -6,7 +6,7 @@ if (isset ($_POST ["submit"])) {
     $password =  mysqli_real_escape_string($connect, $_POST['password']);
 
     if (empty($emailphone) || empty($password)) {
-        header ("Location: ../index.php?error=emptyfields&username=".$emailphone);
+        header ("Location: ../index.php?error=emptyfields&username=".$username);
         exit();
     }
     else {

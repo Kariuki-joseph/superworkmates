@@ -29,14 +29,17 @@ session_start();
     <meta charset="utf-8">
     <meta name= "description" content="This website provides methods of doing personal, business and social projects">
     <meta name="keywords" content="social projects, personal projects, business projects,how to, method, methods, workmates, superworkmates, collaborations on projects">
-
-    <link rel="stylesheet" href="css/mainstyles.css">
+   <!-- <title>Superworkmates: You Don't Have To Work Alone! </title> -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/mainstyles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-   
+  
   </head>
 
   <body>
-
     <!--top of page - Part 1-->
     <div class="pagetop">
       
@@ -60,10 +63,61 @@ session_start();
              <!-- <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">class</i> Learn </div> </a> -->
               <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">tour</i> Places </div> </a>
               <a href="trends.php"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">timeline</i> Trends </div> </a>
-              <a href="#"> <div class = "sehemu1"> &#9776 </div> </a>
+              <a href="#" data-toggle="dropdown" >
+              <i class="fa fa-user"></i> My Account
+              <div class="dropdown">
+                <ul class="dropdown-menu">
+                  <li class="dropdown-item" onclick="login()">Login</li>
+                  <li class="dropdown-divider"></li>
+                  <li class="dropdown-item" onclick="register()">Register</li>
+                </ul>
+              </div>
+              </a>
+              <a href="#"> <div class = "sehemu1"> &#9776 </div> </>
               
           </div>
-
-          
-
     </div>
+    <div class="modal fade" id="modal_login" role="modal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+          <h3 class="text-center"></h3>
+          </div>
+          <div class="modal-body">
+          <div class="row">
+            <div class="container">
+              <form action="" method="POST">
+                <div class="form-group">
+                 <label>Phone/Email</label>
+                  <input type="text" name="email_phone" placeholder="Email/Phone" class="form-control">
+                </div>
+                <div class="form-group">
+                 <label>Password</label>
+                  <input type="password" name="password" placeholder="Password" class="form-control">
+                </div>
+                <div class="form-group">
+                  <button type="submit" name="login"><i class="fa fa-sign-in"></i> Login</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modal_register">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    

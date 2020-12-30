@@ -1,3 +1,4 @@
+
 <?php
 include_once 'parts/header.php';
 if (!isset($_SESSION['username'])) {
@@ -6,6 +7,7 @@ if (!isset($_SESSION['username'])) {
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="eng">
   
@@ -16,9 +18,6 @@ if (!isset($_SESSION['username'])) {
 
 </head>
 <body>
-<?php
-
-?>
 <a href="pricelist.php"> <button> Price List </button> </a>
 </br>
 <!--Input Form-->
@@ -26,7 +25,8 @@ if (!isset($_SESSION['username'])) {
    <form action="connections/pricelistpost.php" method="post" class="productsinput">
             <div class=inform>
             <label for="category">Category:</label> </br>
-            <select name="category" id="category">
+
+             <select name="category" id="category">
                 <option> *Please Choose One* </option>
                 <option> Agriculture </option>
                 <option> Arts </option>
@@ -105,3 +105,4 @@ include_once 'parts/footer.php';
 ?>
 </body>
 </html>
+

@@ -17,4 +17,4 @@ deployment:
   - /bin/cp -r myprofile.php $DEPLOYPATH
   - /bin/cp -r pricelist.php $DEPLOYPATH
   - /bin/cp -r signup.php $DEPLOYPATH
-  
+

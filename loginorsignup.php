@@ -43,5 +43,4 @@
   <h4>Sign Up</h4>
   <a href="signup.php"> <button>Create Account</button> </a>
 </div>
-</div>
-</div>
+

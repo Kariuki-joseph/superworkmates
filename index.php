@@ -39,27 +39,6 @@ include_once 'parts/header.php';
    include_once 'loginorsignup.php';
   }
   ?>
-
-        <div class="bb">
-          <h4>Log In</h4>
-
-
-            <form action="connections/processLogin.php" method="POST" class="theloginform">
-              <label for="userid">Phone or Email:</label> </br>
-              <input type="text" name="userid" class="weka1 form-control" placeholder="Phone/Email">
-              </br>
-              </br>
-              <label for="password">Password:</label> </br>
-              <input type="password" name="password" class="weka2 form-control">
-              </br>
-              </br>
-                <input type="submit" name="submit" value="Log In" class="btn btn-primary">
-              </br>
-        </form>
-    <!--Sign Up-->
-          <h4>Sign Up</h4>
-          <a href="signup.php"> <button class="btn btn-primary">Create Account</button> </a>
-        </div>
       </div>
     </div>
 

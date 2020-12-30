@@ -73,7 +73,7 @@ session_start();
                 </ul>
               </div>
               </a>
-              <a href="#"> <div class = "sehemu1"> &#9776 </div> </>
+              <a href="#"> <div class = "sehemu1"> &#9776 </div> </a>
               
           </div>
     </div>

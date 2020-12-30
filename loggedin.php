@@ -48,8 +48,6 @@
         }
         ?>
     </div>
-</div>
-</div>
 <script>
 function openUploadForm(){
     document.getElementById('formUploadProfilePic').classList.toggle('hide');

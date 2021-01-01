@@ -9,6 +9,7 @@ deployment:
   - /bin/cp -r profileimages/ $DEPLOYPATH
   - /bin/cp -r getimage.php $DEPLOYPATH
   - /bin/cp -r index.php $DEPLOYPATH
+  - /bin/cp -r admin.php $DEPLOYPATH
   - /bin/cp -r loggedin.php $DEPLOYPATH
   - /bin/cp -r loginorsignup.php $DEPLOYPATH
   - /bin/cp -r loginorsignupmodal.php $DEPLOYPATH
@@ -17,4 +18,9 @@ deployment:
   - /bin/cp -r myprofile.php $DEPLOYPATH
   - /bin/cp -r pricelist.php $DEPLOYPATH
   - /bin/cp -r signup.php $DEPLOYPATH
+  - /bin/cp -r createNewPassword.php $DEPLOYPATH
+  - /bin/cp -r processChangePassword.php $DEPLOYPATH
+  - /bin/cp -r resetpassword.php $DEPLOYPATH
+  - /bin/cp -r processResetPassword.php $DEPLOYPATH
+
 

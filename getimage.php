@@ -48,7 +48,7 @@ if (!mysqli_query($connect,$profpic)) {
      
   }
   else {
-    $_SESSION['error']='Only .jpg, .jpeg, .png, and .gif images are allowed.';
+    $_SESSION['error']='Please choose a .jpg, .jpeg, .png, or .gif image for your public profile picture.';
       header ("Location: index.php");
   }
 

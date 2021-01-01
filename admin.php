@@ -2,6 +2,7 @@
 include ('dbConnect.php');
 include ('header_admin.php');
 include('config.php');
+include_once 'parts/header.php';
 
 $trends=$trends->getAllTrends();
 

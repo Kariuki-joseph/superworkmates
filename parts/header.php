@@ -64,7 +64,7 @@ session_start();
               <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">tour</i> Places </div> </a>
               <a href="trends.php"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">timeline</i> Trends </div> </a>
               <a href="#" data-toggle="dropdown" >
-              <i class="fa fa-user"></i> My Account
+              <i class="fa fa-user" ></i> My Account
               <div class="dropdown">
                 <ul class="dropdown-menu">
                   <li class="dropdown-item" onclick="login()">Login</li>
@@ -73,7 +73,7 @@ session_start();
                 </ul>
               </div>
               </a>
-              <a href="#"> <div class = "sehemu1"> &#9776 </div> </a>
+              <a href="#" style="font-size:20px; color:rgba(255, 0, 102, 1);> <div class = "sehemu1"> &#9776 </div> </a>
               
           </div>
     </div>

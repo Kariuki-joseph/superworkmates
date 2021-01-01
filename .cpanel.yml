@@ -21,6 +21,6 @@ deployment:
   - /bin/cp -r createNewPassword.php $DEPLOYPATH
   - /bin/cp -r processChangePassword.php $DEPLOYPATH
   - /bin/cp -r resetpassword.php $DEPLOYPATH
-  - /bin/cp -r processResetPassword.php $DEPLOYPATH
+  - /bin/cp -r ProcessResetPassword.php $DEPLOYPATH
 
 

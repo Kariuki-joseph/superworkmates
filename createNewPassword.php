@@ -16,6 +16,15 @@ include_once 'parts/header.php';
     $theselector = $_GET["selector"];
     $thevalidator = $_GET["validator"];
 
+    if (isset ($_GET['error'])) {
+        if ($_GET['error'] == "passnotsame") {
+        echo '<p class="reset-error">The passwords you entered do not match. <br>Please ensure there are no typing errors.</p>';
+       }
+       elseif ($_GET['error'] == "emptyfields") {
+        echo '<p class="reset-error">Enter your new password. <br>Remember to confirm it on the second box.</p>';
+       }
+    }
+
     if (empty($theselector) || empty($thevalidator)) {
         echo "Sorry, we could not validate your request. <br>Please use the link in you received in your email to reset your password!";
     }

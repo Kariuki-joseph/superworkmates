@@ -38,7 +38,7 @@ if (!isset ($_GET['reset'])) {
     <p>An e-mail will be sent to you with instructions on how to reset your password</p>
     <p>Please enter your email here:</p>
     <!--Form-->
-        <form action="processResetPassword.php" name="resetpassword" method="post" id="formPasswordReset">
+        <form action="ProcessResetPassword.php" name="resetpassword" method="post" id="formPasswordReset">
             <label for="email">
                 <input type="email" name="email" placeholder = "Your email here">
             </label>

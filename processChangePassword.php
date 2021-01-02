@@ -3,8 +3,8 @@
 require 'connections/dbconnect.php';
 
 if(isset($_POST['change-password'])) {
-    $aselector = $_POST['$theselector'];
-    $avalidator = $_POST['$thevalidator'];
+    $aselector = $_POST['selector'];
+    $avalidator = $_POST['validator'];
     $anewpass1 = mysqli_real_escape_string($connect, $_POST['password1']);
     $anewpass2 = mysqli_real_escape_string($connect, $_POST['password2']);
 
@@ -20,14 +20,14 @@ if(isset($_POST['change-password'])) {
     /*Selecting user needing password change */
     $currentDate = date("U");
 
-    $theSql = "SELECT * FROM passrest WHERE resetSelectorToken =? AND resetExpires >=? ;";
+    $theSql = "SELECT * FROM passreset WHERE resetSelectorToken =? AND resetExpires >=? ;";
     $stmt = mysqli_stmt_init($connect);
     if (!mysqli_stmt_prepare($stmt, $theSql)) {
         echo "Sorry, Connection Error";
         exit();
         }
         else {
-            mysqli_stmt_bind_param($stmt, "ss", $theselector, $currentDate);
+            mysqli_stmt_bind_param($stmt, "ss", $aselector, $currentDate);
             mysqli_stmt_execute($stmt);
 
             $result = mysqli_stmt_get_result($stmt);
@@ -85,7 +85,7 @@ if(isset($_POST['change-password'])) {
                                             else {
                                                 mysqli_stmt_bind_param($stmt, "s", $tokenEmail);
                                                 mysqli_stmt_execute($stmt);
-                                                header("Location:index.php?success=password=reset=successful")
+                                                header("Location:index.php?success=password=reset=successful");
                                             }
                                     }
                             }

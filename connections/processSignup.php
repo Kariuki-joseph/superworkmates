@@ -27,7 +27,7 @@ if (isset($_POST['newsubmit'])) {
         
      }
 
-     elseif (!preg_match("/^[a-zA-Z0-9-_. ]*$/",$username)) {
+     elseif (!preg_match("/^[a-zA-Z0-9-_.]*$/",$username)) {
         header ("Location: ../signup.php?error=invalidusername&email=".$email."&phone=".$phone);
        exit();
        

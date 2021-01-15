@@ -1,10 +1,8 @@
-<<<<<<< HEAD
-sup_j/
-withlogin/
 test.php
 connections/dbconnect.php
-=======
-connections/
-connections/dbconnect.php
-
->>>>>>> 50ddae2 (Fixed merge conflict while reverting)
+classes/db.php
+dbConnect.php
+images/
+item-images/*
+profileimages/*
+uploads/*

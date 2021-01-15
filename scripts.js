@@ -88,6 +88,27 @@ let index = array.indexOf(value);
 function arrayAdd(array,value) {
 	
 }
+//login and register
+function login(title = 'Login to Superworkmates'){
+	_('#modal_login div.modal-header > h3').innerText=title;
+	$('#modal_login').modal('show');
+}
+function register(){
+	//close login modal just incase its open
+	$('#modal_login').modal('hide');
+	$('#modal_register').modal('show');
+}
+//check for login
+// function isLoggedIn(){
+// 	loginStatus = null;
+// 	while(loginStatus === null){
+// fetch('check-login.php').then(response=>response.json())
+// 	.then(login=>{
+// 		loginStatus = login.status;
+// 	}).catch(err=>console.log(err));
+// 	}
+// 	return loginStatus;
+// }
 
 //display carousel with images
 function displayCarouselOnItemClick(){
@@ -97,24 +118,30 @@ for(let i=0; i<rows.length; i++){
 		let itemId = rows[i].childNodes[1].innerText;
 		//name of the item at nodelist 5
 		let itemName = rows[i].childNodes[5].innerText;
-		//fetch images
+		//whether the clicked cell should display images
+		if (e.target.hasAttribute('data-view-image-onclick')) {
+			//fetch images
 		let imageUrl = 'fetchImages.php?id='+itemId;
 		fetch(imageUrl).then(response=>response.text())
 		.then(response=>{
 			 
-			//carousel items
+			//carousel items with images
 			_('#carouselImageViewInner').innerHTML=response;
 		})
 		.catch(err=>console.log(err));
 		
-		//open modal
+		//open modal for viewing item images
 		_('#btnModalImageView').click();
 		_('#btnModalImageViewHeader').innerHTML=itemName;
-
+		}
 	});
 }
 }
-
+//open post on pricelist modal
+$('#btnPostOnPricelist').on('click', (e)=>{
+//validate for login
+$('#modalAddToPricelist').modal('show');
+});
 //load row items
 function loadAllRowItems() {
 	fetch('search.php?loadAll=true').then(response=>response.text())
@@ -122,10 +149,10 @@ function loadAllRowItems() {
 	_('.pricelistable').innerHTML=response;
 	}).catch(err=>console.log(err));
 }
-//////////////////////////////funtions/////////////
+///////////////////////////////funtions/////////////
 //upload image
 const images=[];
-_('#itemImg').addEventListener('change',()=>{
+$('#itemImg').on('change',()=>{
 	let selImg = _('#itemImg').files[0];
 		images.push(selImg.name);
 		addToPreview(selImg);
@@ -148,7 +175,7 @@ fetch(url,options)
 });
 
 //send a pricelist item
-_('#formAddPricelistEntry').addEventListener('submit',(e)=>{
+$('#formAddPricelistEntry').on('submit',(e)=>{
 	e.preventDefault();
 
 	//capture form data 
@@ -325,11 +352,85 @@ displayCarouselOnItemClick();
 //check any by default
 // click($('#filterFormCategories input')[0]);
 
-//login and register
-function login(){
-	$('#modal_login').modal('show');
-}
-function register(){
-	$('#modal_register').modal('show');
-}
 
+//item buy
+ document.querySelectorAll('table td:nth-child(11) > button').forEach(btn=>{
+	btn.addEventListener('click',(e)=>{
+
+		//open buy modal
+		let itemName = e.path[2].cells[1].innerHTML;
+		$('#modal_buy_product div.modal-header').html(`
+		Buy '${e.path[2].cells[1].innerHTML}' from '${e.path[2].cells[8].innerHTML}'
+		`);
+		$('#modal_buy_product').modal('show');
+		//modal form reset
+		$('#btn_cancel_buy').on('click',()=>{
+			_('#formBuyItem').reset();
+		});
+		//id of the seller
+		let sellerId = e.target.getAttribute('data-seller_id');
+		//buy item
+		$('#btn_send_buy').on('click', (e)=>{
+			//disable button
+			$('#btn_send_buy').css({'disabled' :'true'});
+			$('#btn_send_buy').html('<i>Sending...</i>');
+
+			let buyerDetails = new FormData(_('#formBuyItem'));
+			buyerDetails.append('item',itemName);
+			buyerDetails.append('sellerId', sellerId);
+			buyerDetails.append('buy-item','true');
+
+			fetch('buy-product-mailer.php', {
+				method: 'POST',
+				body: buyerDetails
+			}).then(response=>response.json())
+			.then(response=>{
+				//enable
+				e.target.disabled = false;
+				e.target.innerHTML='Buy <i class="fa fa-paper-plane"></i>';
+				$('#formBuyItem').css({
+					'display': 'none'
+				});
+
+				$('#buy_response').css({
+					'display': 'block'
+				}).html(response.message);
+				_('#btnWrappers').innerHTML=
+				`<botton class="btn btn-success btn-lg" onclick="closeBuyModal()">Close</botton>
+				`;
+			}).catch(err=>{
+				console.log(err);
+				$('#formBuyItem').css({
+					'display': 'none'
+				});
+				$('#buy_response').css({
+					'display': 'block'
+				}).html("Sorry. It seems the seller of this item is not found in our database. Please try another item. Thanks.");
+				_('#btnWrappers').innerHTML=
+				`<botton class="btn btn-success btn-lg" onclick="closeBuyModal()">Close</botton>
+				`;
+				return;
+			});
+
+			//revert the form to its initial status
+			e.target.innerHTML='Buy <i class="fa fa-paper-plane"></i>';
+			e.target.disabled = false;	
+			_('#buy_response').style.display='none';
+			_('#formBuyItem').style.display='block';
+		})
+	})
+})
+
+//reseting modal buy item 
+function closeBuyModal(){
+	_('#formBuyItem').style.display='block';
+	$('#buy_response').html('').css({
+		'display':'none'
+	});
+	$('#modal_buy_product').modal('hide');
+	//revert to original buttons
+	_('#btnWrappers').innerHTML=
+	`<button class="btn btn-warning" id="btn_cancel_buy" class="close" data-dismiss="modal">Cancel <i class="fa fa-close"></i></button>
+	<button class="btn btn-info" id="btn_send_buy">Buy <i class="fa fa-paper-plane"></i></button>
+	`;
+}

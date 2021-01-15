@@ -32,10 +32,10 @@ tr:nth-child(odd) {
   background-color: #abdce2;
 }
 
-button {
+.buy-button {
   height: 36px;
   width: 240px;
-  border-radius: 3px;
+  border-radius: 4px;
   background-color:  chartreuse;
   padding: 5px 2px;
   text-align: center;
@@ -48,6 +48,7 @@ button {
   cursor: pointer;
   border: none;
 }
+
 /*images preview*/
 .photos-preview{
 display: flex;

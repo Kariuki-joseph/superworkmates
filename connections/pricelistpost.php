@@ -1,6 +1,9 @@
 <?php
+session_start();
   //add db connection
   require_once 'dbconnect.php';
+  //users class
+  require_once '../classes/user.php';
 
 //Get Form Data
 
@@ -14,10 +17,13 @@
   $place = mysqli_real_escape_string ($connect,$_POST['place']);
   $seller = mysqli_real_escape_string ($connect,$_POST['seller']);
   $images = mysqli_real_escape_string ($connect,$_POST['images']);
+  //new instance of users 
+  $user = new User($_SESSION['userid']);
+  $sellerId = $user->getId();
         
 //Allow a registration
          
-              $inquery = "INSERT INTO theproducts (category, item, price, quantity, unit, unit_price, quality, description, place, seller,images) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+              $inquery = "INSERT INTO theproducts (category, item, price, quantity, unit, unit_price, quality, description, place, seller, seller_id,images) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
               
               $stmt = mysqli_stmt_init($connect);
               if(!mysqli_stmt_prepare($stmt,$inquery)) {
@@ -28,7 +34,7 @@
                else {
                   $unitprice = $price/$quantity;
 
-                  mysqli_stmt_bind_param($stmt, "ssddsdsssss", $category, $item, $price, $quantity, $unitlabel, $unitprice, $quality, $description, $place, $seller,$images);
+                  mysqli_stmt_bind_param($stmt, "ssddsdssssis", $category, $item, $price, $quantity, $unitlabel, $unitprice, $quality, $description, $place, $seller,$sellerId,$images);
                   if(mysqli_stmt_execute ($stmt)){
                     echo "
                     <div class='alert alert-success'>

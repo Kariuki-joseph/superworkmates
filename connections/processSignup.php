@@ -1,4 +1,6 @@
 <?php
+//start session
+session_start();
 if (isset($_POST['newsubmit'])) {
     //add db connection
     require_once 'dbconnect.php';
@@ -17,34 +19,40 @@ if (isset($_POST['newsubmit'])) {
    // $hashedpassword = password_hash ($pass1, PASSWORD_DEFAULT);
     # code...,
  if (empty($username) || empty($email) || empty($phone) || empty($pass1) || empty($pass2)) {
-        header ("Location: ../signup.php?error=emptyfields&username=".$username."&email=".$email."&phone=".$phone);
+        $_SESSION['error'] = 'Please fill in all fields.';
+        echo '<script>history.back();</script>';
         exit();
     }
     
      elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-         header ("Location: ../signup.php?error=invalidemail&username=".$username."&phone=".$phone);
+         $_SESSION['error'] = 'Please enter a valid <strong>email</strong>';
+        echo '<script>history.back();</script>';
         exit();
         
      }
 
      elseif (!preg_match("/^[a-zA-Z0-9-_.]*$/",$username)) {
-        header ("Location: ../signup.php?error=invalidusername&email=".$email."&phone=".$phone);
-       exit();
+         $_SESSION['error'] = 'Please enter a valid <strong>username</strong>.<br> Letters and numbers are allowed. Underscore allowed. Hyphen allowed. Dot allowed.';
+       echo '<script>history.back();</script>';
+        exit();
        
     }
     //check if number has 10 digits
     elseif ($phonenumbercount !== 10) {
-        header ("Location: ../signup.php?error=phonedigitsnot10&username=".$username."&email=".$email."&phone=".$phone);
+        $_SESSION['error'] = 'Please make sure the <strong>phone number</strong> you entered has all 10 digits.';
+        echo '<script>history.back();</script>';
         exit();
     }
     //check if passwords match
     elseif ($pass1 !== $pass2) {
-        header ("Location: ../signup.php?error=passesnotmatching&username=".$username."&email=".$email."&phone=".$phone);
+        $_SESSION['error'] = '<strong>Passwords do not match</strong>.';
+        echo '<script>history.back();</script>';
         exit();
     }
     //check if password has at least 5 characters long
-    elseif ($passLength < 5) {
-        header ("Location: ../signup.php?error=passtooshort&username=".$username."&email=".$email."&phone=".$phone);
+    elseif ($passLength < 6) {
+        $_SESSION['error'] = 'Password too short.<br>Please make sure it is at least 6 characters long.';
+        echo '<script>history.back();</script>';
         exit();
     }
     else {
@@ -52,8 +60,9 @@ if (isset($_POST['newsubmit'])) {
         $stmt = mysqli_stmt_init ($connect);
 
             if(!mysqli_stmt_prepare($stmt,$sqlcheck)) {
-                header ("Location: ../signup.php?error=sqlerror");
-                exit();
+                $_SESSION['error'] = 'Sorry, something went wrong. Our developers are working on it';
+                echo '<script>history.back();</script>';
+        exit();
                     }
 
         else {
@@ -63,8 +72,9 @@ if (isset($_POST['newsubmit'])) {
             $resultCheck = mysqli_stmt_num_rows ($stmt);
 
                 if ($resultCheck > 0 ) {
-                    header ("Location: ../signup.php?error=email-exists&username=".$username."&phone=".$phone);
-                exit();
+                    $_SESSION['error'] = 'A user with that <strong>email</strong> already <strong>exists</strong>.';
+                echo '<script>history.back();</script>';
+        exit();
 
                 }
 //Check if phone number exists
@@ -73,8 +83,9 @@ if (isset($_POST['newsubmit'])) {
             $stmt = mysqli_stmt_init ($connect);
 
             if(!mysqli_stmt_prepare($stmt,$sqlcheck)) {
-                header ("Location: ../signup.php?error=sqlerror");
-                exit();
+                $_SESSION['error'] = 'Sorry, something went wrong. Our developers are working on it';
+                echo '<script>history.back();</script>';
+        exit();
                     }
         
         else {
@@ -84,8 +95,9 @@ if (isset($_POST['newsubmit'])) {
             $resultCheck = mysqli_stmt_num_rows ($stmt);
 
                 if ($resultCheck > 0 ) {
-                    header ("Location: ../signup.php?error=phone-exists&username=".$username."&email=".$email."&phone=".$phone);
-                exit();
+                    $_SESSION['error'] = 'The <strong>phone number</strong> you entered already exists.Please check the number and try again.<br>If you already have an account, please <a href="#" onclick="login()">log in</a> instead.';
+                echo '<script>history.back();</script>';
+        exit();
 
                 }
         
@@ -95,8 +107,9 @@ if (isset($_POST['newsubmit'])) {
                 $inquery = "INSERT INTO theusers (username,email,phone,hashedpassword) VALUES (?,?,?,?)";
                 $stmt = mysqli_stmt_init($connect);
                 if(!mysqli_stmt_prepare($stmt,$inquery)) {
-                    header ("Location: ../signup.php?error=sqlregerror");
-                    exit();
+                    $_SESSION['error'] = 'Sorry, something went wrong. Our developers are working on it';
+                    echo '<script>history.back();</script>';
+        exit();
                         }
          
                  else {
@@ -104,7 +117,8 @@ if (isset($_POST['newsubmit'])) {
 
                     mysqli_stmt_bind_param($stmt, "ssis", $username, $email, $phone, $hashedpassword);
                     mysqli_stmt_execute ($stmt);
-                    header ("Location:../index.php?error=none");
+                    $_SESSION['success'] = '<strong>You Have Successfully Registered.Welcome</strong>';
+                    header ("Location:../index.php");
 //                    exit();
 
                 $getuserid = "SELECT id FROM theusers WHERE email = '$email'";
@@ -112,7 +126,6 @@ if (isset($_POST['newsubmit'])) {
                 $result = mysqli_fetch_array($query);
                 $userid = $result['id'];
 
-                    session_start();
                     $_SESSION['username'] = $username;
                     $_SESSION['userid'] = $userid;
         

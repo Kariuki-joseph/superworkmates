@@ -63,13 +63,17 @@ session_start();
              <!-- <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">class</i> Learn </div> </a> -->
               <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">tour</i> Places </div> </a>
               <a href="trends.php"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">timeline</i> Trends </div> </a>
-              <a href="#" data-toggle="dropdown" >
+              <a href="#" data-toggle="dropdown" style="cursor: pointer;">
               <i class="fa fa-user" ></i> My Account
               <div class="dropdown">
                 <ul class="dropdown-menu">
+                <?php if (!isset($_SESSION['userid'])) { ?>
                   <li class="dropdown-item" onclick="login()">Login</li>
                   <li class="dropdown-divider"></li>
-                  <li class="dropdown-item" onclick="register()">Register</li>
+                  <li class="dropdown-item">Register</li>
+                  <?php }else{ ?>
+                    <li class="dropdown-item" onclick="logout()">Logout</li>
+                    <?php }?>
                 </ul>
               </div>
               </a>
@@ -81,28 +85,81 @@ session_start();
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-          <h3 class="text-center"></h3>
+          <h3 class="text-center">Login to Superworkmates</h3>
           </div>
           <div class="modal-body">
-          <div class="row">
-            <div class="container">
-              <form action="" method="POST">
-                <div class="form-group">
-                 <label>Phone/Email</label>
-                  <input type="text" name="email_phone" placeholder="Email/Phone" class="form-control">
-                </div>
-                <div class="form-group">
-                 <label>Password</label>
-                  <input type="password" name="password" placeholder="Password" class="form-control">
-                </div>
-                <div class="form-group">
-                  <button type="submit" name="login"><i class="fa fa-sign-in"></i> Login</button>
-                </div>
-              </form>
+            <div class="row">
+              <div class="container">
+                <form action="" method="POST" id="formLogin">
+                <div class="login-success bg-success text-center"></div>
+                  <div class="form-group">
+                  <label>Phone/Email</label>
+                    <input type="text" name="email_phone" id="email_phone" placeholder="Email/Phone" class="form-control">
+                    <div style="color: red;"><!--displays email errors--></div>
+                  </div>
+                  <div class="form-group">
+                  <label>Password</label>
+                    <input type="password" name="password" id="password" placeholder="Password" class="form-control">
+                    <div style="color: red;"><!--displays password erroes--></div>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" id="btnLogin" name="login" class="btn-login"><i class="fa fa-sign-in"></i> Login</button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
-          </div>
           <div class="modal-footer">
+          <a href="signup.php" style="cursor: pointer;">Don't have an account? Register here</a>
+          <script>
+          //handles login
+    document.querySelector('form#formLogin').addEventListener('submit',(e)=>{
+      e.preventDefault();
+      let btnLogin = document.querySelector('form#formLogin button#btnLogin');
+      btnLogin.innerHTML='<i>Signing in... Please wait..</i>';
+      //capture details
+      let email_phone = document.querySelector('form#formLogin input#email_phone');
+      let password = document.querySelector('#formLogin input#password');
+      let loginDetails = new FormData();
+      loginDetails.append('email_phone', email_phone.value);
+      loginDetails.append('password', password.value);
+      loginDetails.append('submit','true');
+
+      fetch('connections/processLogin.php',{
+        method : 'POST',
+        body : loginDetails
+      }).then(response=>response.json())
+        .then(response=>{
+          switch(response.status){
+            case 'fail':
+            if(response.error.type == 'emailError'){
+            email_phone.nextElementSibling.innerText=response.error.msg;
+            btnLogin.innerHTML='<i class="fa fa-sign-in"></i> Login';
+            }else{
+            password.nextElementSibling.innerText=response.error.msg;
+            btnLogin.innerHTML='<i class="fa fa-sign-in"></i> Login';
+            }
+            break;
+            case 'success':
+            document.querySelector('div.login-success').innerText="Login successful...Redirecting";
+            document.querySelector('div.login-success').style.display='block';
+            btnLogin.innerHTML='<i class="fa fa-sign-in"></i> Login';
+            //redirect to index.php
+            window.location.href = 'index.php';
+          }
+        }).catch(err=>console.log(err))
+    });
+    //hide the errors when user is modifing
+    function hideErrorsOnFocus(){
+      email_phone.addEventListener('focus',()=>email_phone.nextElementSibling.innerText='');
+      password.addEventListener('focus',()=>password.nextElementSibling.innerText='');
+    }
+    hideErrorsOnFocus();
+    //handling logout
+    function logout(){
+      return window.location.href='logout.php';
+    }
+              </script>
           </div>
         </div>
       </div>
@@ -111,8 +168,33 @@ session_start();
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
+          <h3>Register with superworkmates</h3>
           </div>
           <div class="modal-body">
+          <form action="connections/processSignup.php" method="post" class="signupform">
+                <div class="form-group">
+                <label for="username">Favourite Name:</label>
+                  <input type="text" name="username" placeholder="Favourite Name" class="form-control">
+                </div>
+                <div class="form-group">
+                <label for="email">Email:</label>
+                  <input type="text" name="email" placeholder="Email" class="form-control">
+                </div>
+                <div class="form-group">
+                <label for="phone">Enter your phone number (10 digits):</label>
+                  <input type="number" name="phone" placeholder="Phone Number" class="form-control">
+                </div>
+                <div class="form-group">
+                <label for="password">Create a password</label>
+                  <input type="password" name="password" placeholder="Create Password" class="form-control">
+                </div>
+                <div class="form-group">
+                <label for="password2">Confirm your password:</label>
+                  <input type="password" name="password2" placeholder="Confirm Password" class="form-control">
+                </div>
+                </br>
+                <button type="submit" name="newsubmit" value="submit">Sign Up</button>
+       </form>
           </div>
           <div class="modal-footer">
           </div>

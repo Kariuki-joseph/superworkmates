@@ -2,18 +2,39 @@
 if (isset ($_POST ["submit"])) {
 
     require_once 'dbconnect.php';
-    $emailphone =  mysqli_real_escape_string($connect, $_POST['userid']);
+    $emailphone =  mysqli_real_escape_string($connect, $_POST['email_phone']);
     $password =  mysqli_real_escape_string($connect, $_POST['password']);
 
-    if (empty($emailphone) || empty($password)) {
-        header ("Location: ../index.php?error=emptyfields&username=".$username);
+    if (empty($emailphone)) {
+        echo json_encode(array(
+            'status'=>'fail',
+            'error'=>array(
+                'type'=>'emailError',
+                'msg'=>'Email cannot be empty'
+             )
+        ));
+        exit();
+    }elseif(empty($password)){
+        echo json_encode(array(
+            'status'=>'fail',
+            'error'=>array(
+                'type'=>'passwordError',
+                'msg'=>'Password cannot be empty'
+             )
+        ));
         exit();
     }
     else {
         $sqlenquery = "SELECT * FROM theusers WHERE phone = ? OR email = ?;";
         $stmt = mysqli_stmt_init ($connect);
         if (!mysqli_stmt_prepare( $stmt, $sqlenquery)) {
-            header ("Location: ../index.php?error=sqlerror");
+            echo json_encode(array(
+                'status'=>'fail',
+                'error'=>array(
+                    'type'=>'emailError',
+                    'msg'=>'An error ocurred while preparing your query. Please try again'
+                 )
+            ));
             exit();
         }
         else {
@@ -23,7 +44,13 @@ if (isset ($_POST ["submit"])) {
             if ($row = mysqli_fetch_assoc($result)) {
                 $passCheck = password_verify ($password, $row['hashedpassword']);
                 if ($passCheck == false) {
-                    header ("Location: ../index.php?error=passworderror");
+                    echo json_encode(array(
+                        'status'=>'fail',
+                        'error'=>array(
+                            'type'=>'passwordError',
+                            'msg'=>'Invalid login details. Verify then try again'
+                         )
+                    ));
                     exit();
                 }
                 elseif ($passCheck == true) {
@@ -31,17 +58,22 @@ if (isset ($_POST ["submit"])) {
                     $_SESSION['username'] = $row['username'];
                     $_SESSION['userid'] = $row['id'];
 
-                    header ("Location: ../index.php");
+                    echo json_encode(array(
+                        'status'=>'success',
+                        'msg'=>'Login successful. Redirecting to home'
+                    ));
                     exit();
 
                 }
-                else {
-                    header ("Location: ../index.php?error=unknown");
-                    exit();
-                }
             }
             else {
-                header ("Location: ../index.php?error=nosuchuserhere");
+                echo json_encode(array(
+                    'status'=>'fail',
+                    'error'=>array(
+                        'type'=>'emailError',
+                        'msg'=>'No user with this email was found. Please verify then try again.'
+                     )
+                ));
                 exit();
             }
         }
@@ -49,6 +81,12 @@ if (isset ($_POST ["submit"])) {
     }
 }
 else {
-    header ("Location: ../index.php");
+    echo json_encode(array(
+        'status'=>'fail',
+        'error'=>array(
+            'type'=>'unverifiedAccess',
+            'msg'=>'Not allowed to access the requested page.'
+         )
+    ));
     exit();
 }

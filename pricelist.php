@@ -14,10 +14,23 @@ include_once 'config.php';
 ?>
 
 <div class="d-flex justify-content-between">
+<!--login to post on pricelist-->
+<?php if(isset($_SESSION['userid']) || isset($_SESSION['username'])){?>
+<button class="btn btn-primary m-1 btn-lg" id="btnPostOnPricelist"><h5>Post on pricelist</h5></button>
+<?php
+}else{
+?>
+<button class="btn btn-primary m-1 btn-lg" onclick="login('Login to post on superworkmates pricelist')"><h5>Post on pricelist</h5></button>
+<?php
+}
 
-<button class="btn btn-primary m-1 btn-lg" data-toggle="modal" data-target="#modalAddToPricelist"><h5>Post on pricelist</h5></button>
-
+if (isset($_SESSION['userid']) || isset($_SESSION['username'])) {
+?>
 <button id="btnOpenFilters" class="btn btn-secondary mt-1 mr-2">More Filters <i class="fa fa-caret-right"></i> <i class="fa fa-caret-right"></i></button>
+<?php
+}
+?>
+<!--login to post on pricelist-->
 </div>
 
 <div class="row">
@@ -264,6 +277,40 @@ include_once 'config.php';
 </div>
 <!--/images view modal-->
 
+<!--buy item modal-->
+<div class="modal fade" id="modal_buy_product">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">Buy ${item} from ${seller} as</div>
+      <div class="modal-body">
+        <form id="formBuyItem">
+          <div class="form-group row">
+            <div class=" form-group container">
+              <label for="username">Name</label>
+              <input type="text" name="username" id="" class="form-control" placeholder = "Enter your desired name">
+            </div>
+            <div class="form-group container">
+            <label for="username">Phone</label>
+              <input type="text" name="phone" id="" class="form-control" placeholder = "Enter phone contact">
+            </div>
+            <div class="form-group container">
+            <label for="message">Brief message to the seller</label>
+              <textarea name="message" id="message" cols="30" rows="4" class="form-control">Is this still available?</textarea>
+            </div>
+          </div>
+        </form>
+        <p id="buy_response" style="display: none;"></p>
+        <div class="d-flex justify-content-around" id="btnWrappers">
+          <button class="btn btn-warning" id="btn_cancel_buy" class="close" data-dismiss="modal">Cancel <i class="fa fa-close"></i></button>
+          <button class="btn btn-info" id="btn_send_buy">Buy <i class="fa fa-paper-plane"></i></button>
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<!--buy item modal-->
 <div style="overflow-x:auto;">
 <div style="overflow-y:auto;">
 
@@ -272,7 +319,6 @@ include_once 'config.php';
       <tr class="table-header"> 
           <div class="thead">
             <th>Item ID</th>
-            <th>Category</th>
             <th>Item</th>
             <th>Price</th>
             <th>Quantity</th>
@@ -282,6 +328,7 @@ include_once 'config.php';
             <th>Place</th>
             <th>Seller</th>
             <th>Date and Time</th>
+            <th>Buy</th>
           </div>
         </tr>
     
@@ -292,27 +339,28 @@ include_once 'config.php';
         $result = mysqli_query($connect,$sql);
         $rowCount = mysqli_num_rows($result);
 
-        if ($rowCount > 0) { while ($row = mysqli_fetch_array($result)) {
-          echo "<tr class='table-row'> 
-                  <td>" .$row["id"] ."</td> 
-                  <td>" .$row["category"] ."</td>
-                  <td id='itemName'>" .$row["item"] ."</td>
-                  <td>"."KSh" ." " .number_format($row["price"],2) ."</td>
-                  <td>" .number_format($row["quantity"],1) ."</td>
-                  <td>" ."KSh" ." " .number_format($row["unit_price"],2) . " "."per" ." " .$row["unit"] ."</td>
-                  <td>" .$row["quality"] ."</td>
-                  <td>" .$row["description"] ."</td>
-                  <td>" .$row["place"] ."</td>
-                  <td>" .$row["seller"] ."</td>
-                  <td>" .$row["datetime"] ."</td>
+        if ($rowCount > 0) {
+           while ($row = mysqli_fetch_array($result)) {
+          ?>
+            <tr class='table-row'> 
+                  <td data-view-image-onclick = "true"><?php echo $row["id"];?></td> 
+                  <td data-view-image-onclick = "true" id='itemName'><?php echo $row["item"];?></td>
+                  <td data-view-image-onclick = "true">KSh. <?php echo number_format($row["price"],2); ?></td>
+                  <td data-view-image-onclick = "true"><?php echo number_format($row["quantity"],1)?></td>
+                  <td data-view-image-onclick = "true">KSh. <?php echo number_format($row["unit_price"],2)."per ".$row["unit"];?></td>
+                  <td data-view-image-onclick = "true"><?php echo $row["quality"];?></td>
+                  <td data-view-image-onclick = "true"><?php echo $row["description"];?></td>
+                  <td data-view-image-onclick = "true"><?php echo $row["place"];?></td>
+                  <td><?php echo $row["seller"];?></td>
+                  <td data-view-image-onclick = "true"><?php echo $row["datetime"];?></td>
+                  <td><button class='buy-button' data-seller_id="<?php echo $row['seller_id'];?>">Buy</button></td>
                   
-              <tr>";
+              <tr>
+        <?php
         }
-        
-        } else {
+       } else {
           echo "Nothing Found";
         }
-
         ?>
 </table>
 </div>

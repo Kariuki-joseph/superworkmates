@@ -37,14 +37,8 @@ include('parts/header.php');
 </div>
 
 <div class="business">
-		<h3 class="bg bg-warning">business</h3>
-<div class="relative">
-	<form method="" action="">
-	<input type="text" name="" placeholder="Equipments" class="form-control mt-2">
-	<input type="text" name="" placeholder="Property" class="form-control mt-2">
-	<input type="button" name="" value="Add equipment/property" class="mt-2 btn btn-warning">
-	</form>
-</div>
+		<h3 class="bg bg-super-9 p-1">business</h3>
+
 </div>
 </div>
 
@@ -125,7 +119,7 @@ while ($row=mysqli_fetch_array($social)) {
 </ul>
 	</div>
 
-	<div><h3>Business</h3>
+	<div><h3 id="businessHeading">Business</h3>
 <ul>
 	<?php
 while ($row=mysqli_fetch_array($business)) {
@@ -139,3 +133,11 @@ while ($row=mysqli_fetch_array($business)) {
 	</div>
 </div>
 </div>
+
+<?php
+require_once 'general-scripts-sources.php';
+?>
+<script src="js/myOffice.js"></script>
+<?php 
+require_once 'parts/footer.php';
+?>

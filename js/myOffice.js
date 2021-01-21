@@ -1,0 +1,1 @@
+$('#businessHeading').text("No longer a business project");

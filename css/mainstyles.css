@@ -265,21 +265,6 @@ hr {
 .profileimage img {
   width: 100%;
 }
-/*
-.profileimage{
-  display: flex;
-  justify-content: center;
-  overflow: au;
-}
-.profileimage img{
-  width: 150px;
-  height: 150px;
-  border-top-left-radius:50%;
-  border-top-right-radius: 50%;
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
-}
-*/
 .hide{
   display: none;
 }
@@ -316,3 +301,79 @@ hr {
   width: 30%;
   height: 45px;
 }
+
+  @media screen and (max-width: 500px){
+    .col__xsm__6{
+    width: 50%;
+  }
+
+  }
+  .bg-super{
+    background-color:  chartreuse;
+  }
+  .bg-super-1{
+    background-color:  rgba(127,255,0,0.1);
+  }
+  .bg-super-2{
+    background-color:  rgba(127,255,0,0.2);
+  }
+  .bg-super-3{
+    background-color:  rgba(127,255,0,0.3);
+  }
+  .bg-super-4{
+    background-color:  rgba(127,255,0,0.4);
+  }
+  .bg-super-5{
+    background-color:  rgba(127,255,0,0.5);
+  }
+  .bg-super-6{
+    background-color:  rgba(127,255,0,0.6);
+  }
+  .bg-super-7{
+    background-color:  rgba(127,255,0,0.7);
+  }
+  .bg-super-8{
+    background-color:  rgba(127,255,0,0.8);
+  }
+  .bg-super-9{
+    background-color:  rgba(127,255,0,0.9);
+  }
+
+.product-description{
+  max-height: 10rem;
+  overflow: scroll;
+}
+.welcome-msg-equipments{
+  font-size: 30px;
+  letter-spacing: 2px;
+  font-family:'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.btn-post-equipment{
+  background-color: chartreuse;
+}
+div.post-equipment-response{
+  display: none;
+  background-color:rgb(79,225,79);
+  border-radius: 5px;
+  font-style: italic;
+  font-size: 24px;
+  text-align: center;
+  color: white;
+  min-height: 3rem;
+}
+ul.equipments-search-results{
+  display: none;
+  position: absolute;
+  list-style: none;
+  width: 80%;
+  z-index: 100;
+  background: #5bfe23;
+}
+ul.equipments-search-results li{
+  padding: 5px 12px;
+  transition: all 0.5s ease;
+}
+ul.equipments-search-results li:hover{
+  background: #5add2f;
+}
+

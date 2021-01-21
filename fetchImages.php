@@ -1,10 +1,16 @@
 <?php
-include 'config.php';
+include 'classes/db.php';
+require_once 'classes/items.php';
 $itemId = $_GET['id'];
-//new instance of item
-$item = new Item($itemId);
 
-$imgArr = explode(',', $item->getImages());
+//validate that images exists, otherwise exit
+$item = new Item($itemId);
+if(empty($item->get('images'))){
+  echo "fail";
+  exit();
+}
+
+$imgArr = explode(',', $item->get('images'));
 //make a full path of the images
 $fullPathArr = [];
 foreach ($imgArr as $key => $value) {

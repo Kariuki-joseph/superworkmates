@@ -6,26 +6,23 @@ if (isset($_POST['buy-item'])) {
     $phone = mysqli_real_escape_string($connect, $_POST['phone']);
     $itemName = $_POST['item'];
     $userMessage = mysqli_real_escape_string($connect, $_POST['message']);
-    $message = "Hello, $username has just sent a buy request to your item $itemName. Contact him/her on: $phone. Buyers message is: $userMessage. \n Thankyou.\n\n Supeprworkmates-you don't have to work alone\\n";
+   
+    $message = "Hello, ".$username." has just sent a buy request to your item ".$itemName.". Contact him/her on: ".$phone.". Buyers message is: ".$userMessage.". <br> Thankyou.<br> Supeprworkmates-you don't have to work alone<br><br><br><br>";
     $message .="You are receiving this email because you listed your item for sale on superworkmates pricelist.";
 
     //users class
+    require_once 'classes/db.php';
     require_once 'classes/user.php';
     $user = new User($_POST['sellerId']);
         /*Sending the email */
-        $to = $user->getEmail();
+        $to = $user->get('email');
+        die($user);
         $subject = 'Buy request for your item: '.'$itemName';
         $header = "From: <support@superworkmates.com>\r\n";
         $header .= "Reply-To: support@superworkmates.com \r\n";
         $header .="Content-type: text/html\r\n";
 
-        // mail($to,$subject, $message, $button, $header);
-
-        // header("Location:resetpassword.php?reset=success");
-
-
         require "phpMailer/PHPMailer/PHPMailerAutoload.php";
-        $messageSent=false;
         function smtpmailer($to, $from, $from_name, $subject, $body)
             {
                 $mail = new PHPMailer();
@@ -51,14 +48,14 @@ if (isset($_POST['buy-item'])) {
                 $mail->AddAddress($to);
                 if(!$mail->Send())
                 {
-                    $messageSent=false;
-                    return;
+                    $error='Sorry. We are currently unable to process your request to buy '.$itemName.'. Plese try again later. Thank you.';
+                    return $error;
 
                 }
                 else 
                 {
-                    $messageSent=true;
-                    return;
+                    $error='Your request to buy '.$itemName.' was successfully submitted. You will be contacted by the seller as soon as possible.<br> Keep visiting superworkmates pricelist for more items.<br> Thank you.';
+                    return $error;
 
                 }
             }
@@ -71,20 +68,12 @@ if (isset($_POST['buy-item'])) {
             
             $error=smtpmailer($to,$from, $name ,$subj, $msg);
         
-    if ($messageSent === true) {
-        $resp = array(
-            'status'=>'success',
-            'message'=>'Your request to buy '.$itemName.' was successfully submitted. You will be contacted by the seller as soon as possible.<br> Keep visiting superworkmates pricelist for more items.<br> Thank you.'
-        );
-        echo json_encode($resp);
-        return;
-    }else{
-        $resp = array(
-            'status'=>'fail',
-            'message'=>'Sorry. We are currently unable to process your request to buy '.$itemName.'. Plese try again later. Thank you.'
-        );
-        echo json_encode($resp);
-        return;
-    }
+            $resp = array(
+                'status'=>'?',
+                'message'=>$error
+            );
+            echo json_encode($resp);
+            exit();
+  
 
 }

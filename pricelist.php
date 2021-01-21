@@ -4,7 +4,7 @@
 <head>      
 <link rel="stylesheet" href="css/priceliststyles.css">
 <title>Price List | Anything Anywhere </title>
-
+<script src="https://cdn.tiny.cloud/1/xblvkgkykovpyemtrb2qyxjg7048tcugw1vv0ewykk46kv57/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 <body>
 
@@ -168,6 +168,10 @@ if (isset($_SESSION['userid']) || isset($_SESSION['username'])) {
               <textarea name="description" id="description" placeholder="Describe the features of the product here..." rows="4" class="form-control"></textarea>
           </div>
           <div class="form-group">
+            <label for="uses">Uses:</label>
+              <textarea name="uses" id="uses" placeholder="What are the uses of the product?" rows="4" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
             <label for="itemImg">Select Photos</label>
             <input type="file" name="images" id="itemImg" class="form-control" multiple accept="image/*">
             <div class="photos-preview">
@@ -195,6 +199,13 @@ if (isset($_SESSION['userid']) || isset($_SESSION['username'])) {
     </div>
   </div>
 </div>
+<script>
+    tinymce.init({
+      selector: 'textarea',
+      plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+      toolbar_mode: 'floating',
+   });
+  </script>
 <!--/ post on pricelist modal-->
 
 <!--response view modal-->
@@ -215,12 +226,10 @@ if (isset($_SESSION['userid']) || isset($_SESSION['username'])) {
 </div>
 <!--/response view modal-->
 <!--images view modal-->
-<button class="btn btn-primary" data-toggle="modal" data-target="#modalImageView" style="display: none;" id="btnModalImageView">View image</button>
-
 <div class="modal fade" id="modalImageView" role="modal">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header" id="btnModalImageViewHeader"></div>
+      <div class="modal-header" id="modalImageViewHeader"></div>
       <div class="modal-body">
 
         <!--carousel images-->
@@ -276,7 +285,14 @@ if (isset($_SESSION['userid']) || isset($_SESSION['username'])) {
   </div>
 </div>
 <!--/images view modal-->
-
+<?php
+//auto-fill credentials in a form for logged in users
+if(isset($_SESSION['userid'])){
+require_once 'classes/db.php';
+require_once 'classes/user.php';
+$user = new User($_SESSION['userid']);
+}
+?>
 <!--buy item modal-->
 <div class="modal fade" id="modal_buy_product">
   <div class="modal-dialog">
@@ -287,11 +303,11 @@ if (isset($_SESSION['userid']) || isset($_SESSION['username'])) {
           <div class="form-group row">
             <div class=" form-group container">
               <label for="username">Name</label>
-              <input type="text" name="username" id="" class="form-control" placeholder = "Enter your desired name">
+              <input type="text" name="username" id="" value="<?php echo (isset($_SESSION['userid'])) ? $user->get('username') : '';?>" class="form-control" placeholder = "Enter your desired name">
             </div>
             <div class="form-group container">
             <label for="username">Phone</label>
-              <input type="text" name="phone" id="" class="form-control" placeholder = "Enter phone contact">
+              <input type="text" name="phone" id="" value="<?php echo (isset($_SESSION['userid'])) ? $user->get('phone') : '';?>" class="form-control" placeholder = "Enter phone contact">
             </div>
             <div class="form-group container">
             <label for="message">Brief message to the seller</label>
@@ -325,8 +341,9 @@ if (isset($_SESSION['userid']) || isset($_SESSION['username'])) {
             <th>Unit Price</th>
             <th>Quality</th>
             <th>Description</th>
-            <th>Place</th>
             <th>Seller</th>
+            <th>Place</th>
+            <th>Uses</th>
             <th>Date and Time</th>
             <th>Buy</th>
           </div>
@@ -343,17 +360,21 @@ if (isset($_SESSION['userid']) || isset($_SESSION['username'])) {
            while ($row = mysqli_fetch_array($result)) {
           ?>
             <tr class='table-row'> 
-                  <td data-view-image-onclick = "true"><?php echo $row["id"];?></td> 
-                  <td data-view-image-onclick = "true" id='itemName'><?php echo $row["item"];?></td>
-                  <td data-view-image-onclick = "true">KSh. <?php echo number_format($row["price"],2); ?></td>
-                  <td data-view-image-onclick = "true"><?php echo number_format($row["quantity"],1)?></td>
-                  <td data-view-image-onclick = "true">KSh. <?php echo number_format($row["unit_price"],2)."per ".$row["unit"];?></td>
-                  <td data-view-image-onclick = "true"><?php echo $row["quality"];?></td>
-                  <td data-view-image-onclick = "true"><?php echo $row["description"];?></td>
+                  <td data-view-image-onclick="true" data-content="id"><?php echo $row["id"];?></td> 
+                  <td data-view-image-onclick="true" id='itemName' class="item-name"><?php echo $row["item"];?></td>
+                  <td data-view-image-onclick="true">KSh. <?php echo number_format($row["price"],2); ?></td>
+                  <td data-view-image-onclick="true"><?php echo number_format($row["quantity"],1)?></td>
+                  <td data-view-image-onclick="true">KSh. <?php echo number_format($row["unit_price"],2)." per ".$row["unit"];?></td>
+                  <td data-view-image-onclick="true"><?php echo $row["quality"];?></td>
+                  <td data-view-image-onclick="true"><?php echo $row["description"];?></td>
+                  <td id="td_seller"><?php echo $row["seller"];?></td>
                   <td data-view-image-onclick = "true"><?php echo $row["place"];?></td>
-                  <td><?php echo $row["seller"];?></td>
+                  <td data-view-image-onclick = "true"><?php echo $row["uses"];?></td>
                   <td data-view-image-onclick = "true"><?php echo $row["datetime"];?></td>
-                  <td><button class='buy-button' data-seller_id="<?php echo $row['seller_id'];?>">Buy</button></td>
+                  <td><button class='buy-button' 
+                  data-seller_id="<?php echo $row['seller_id'];?>"
+                  data-item="<?=$row["item"];?>"
+                  data-seller="<?=$row["seller"];?>">Buy</button></td>
                   
               <tr>
         <?php
@@ -367,15 +388,6 @@ if (isset($_SESSION['userid']) || isset($_SESSION['username'])) {
 </div>
 
 </br>
-
-
-<?php
-$price = 500;
-$quantity = 300;
-$unitprice = $price/$quantity;
-echo number_format($unitprice,2);
-?>
-
 </br>
 </br>
 
@@ -383,10 +395,8 @@ echo number_format($unitprice,2);
 
 
 <!--footer-->
+<?php require_once 'general-scripts-sources.php';?>
+<script src="scripts.js"></script>
 <?php
-
 include_once 'parts/footer.php';
-
 ?>
-</body>
-</html>

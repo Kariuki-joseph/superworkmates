@@ -34,7 +34,7 @@ tr:nth-child(odd) {
 
 .buy-button {
   height: 36px;
-  width: 240px;
+  width: 72px;
   border-radius: 4px;
   background-color:  chartreuse;
   padding: 5px 2px;

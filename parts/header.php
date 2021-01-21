@@ -30,7 +30,7 @@ session_start();
     <meta name= "description" content="This website provides methods of doing personal, business and social projects">
     <meta name="keywords" content="social projects, personal projects, business projects,how to, method, methods, workmates, superworkmates, collaborations on projects">
    <!-- <title>Superworkmates: You Don't Have To Work Alone! </title> -->
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
      <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-grid.min.css">
     <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
@@ -57,7 +57,7 @@ session_start();
               <a href="myOffice.php"> <div class = "sehemu1"><i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">work</i> My Office </div> </a>
               <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">build</i> Projects </div> </a> 
               <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">groups</i> Workmates </div> </a>
-              <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">construction</i> Equipment </div> </a>
+              <a href="equipments.php"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">construction</i> Equipment </div> </a>
               <a href="pricelist.php"> <div class = "sehemu1">  <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">local_offer</i> Price List </div> </a>
               <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">forum</i> Forums </div> </a>
              <!-- <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">class</i> Learn </div> </a> -->
@@ -112,19 +112,32 @@ session_start();
           <div class="modal-footer">
           <a href="signup.php" style="cursor: pointer;">Don't have an account? Register here</a>
           <script>
-          //handles login
+          //login
+      function login(title = 'Login to Superworkmates'){
+        $('#modal_login div.modal-header > h3').text(title);
+        $('#modal_login').modal('show');
+      }
+
     document.querySelector('form#formLogin').addEventListener('submit',(e)=>{
       e.preventDefault();
       let btnLogin = document.querySelector('form#formLogin button#btnLogin');
-      btnLogin.innerHTML='<i>Signing in... Please wait..</i>';
       //capture details
       let email_phone = document.querySelector('form#formLogin input#email_phone');
       let password = document.querySelector('#formLogin input#password');
+      //validate if empty
+    if(email_phone.value == ''){
+      email_phone.nextElementSibling.innerText='Email cannot be empty. ';
+      return;
+      }else if(password.value == ''){
+        password.nextElementSibling.innerText='Password cannot be empty.';
+        return;
+      }
       let loginDetails = new FormData();
       loginDetails.append('email_phone', email_phone.value);
       loginDetails.append('password', password.value);
       loginDetails.append('submit','true');
 
+      btnLogin.innerHTML='<i>Signing in... Please wait..</i>';
       fetch('connections/processLogin.php',{
         method : 'POST',
         body : loginDetails
@@ -160,43 +173,6 @@ session_start();
       return window.location.href='logout.php';
     }
               </script>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="modal_register">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-          <h3>Register with superworkmates</h3>
-          </div>
-          <div class="modal-body">
-          <form action="connections/processSignup.php" method="post" class="signupform">
-                <div class="form-group">
-                <label for="username">Favourite Name:</label>
-                  <input type="text" name="username" placeholder="Favourite Name" class="form-control">
-                </div>
-                <div class="form-group">
-                <label for="email">Email:</label>
-                  <input type="text" name="email" placeholder="Email" class="form-control">
-                </div>
-                <div class="form-group">
-                <label for="phone">Enter your phone number (10 digits):</label>
-                  <input type="number" name="phone" placeholder="Phone Number" class="form-control">
-                </div>
-                <div class="form-group">
-                <label for="password">Create a password</label>
-                  <input type="password" name="password" placeholder="Create Password" class="form-control">
-                </div>
-                <div class="form-group">
-                <label for="password2">Confirm your password:</label>
-                  <input type="password" name="password2" placeholder="Confirm Password" class="form-control">
-                </div>
-                </br>
-                <button type="submit" name="newsubmit" value="submit">Sign Up</button>
-       </form>
-          </div>
-          <div class="modal-footer">
           </div>
         </div>
       </div>

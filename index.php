@@ -108,7 +108,8 @@ include_once 'parts/header.php';
 </div>
 
 <!--footer-->
-
+<?php require_once 'general-scripts-sources.php';?>
+<script src="scripts.js"></script>
 <?php
 include_once 'parts/footer.php';
 ?>

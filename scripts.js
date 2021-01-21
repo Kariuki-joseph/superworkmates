@@ -88,28 +88,6 @@ let index = array.indexOf(value);
 function arrayAdd(array,value) {
 	
 }
-//login and register
-function login(title = 'Login to Superworkmates'){
-	_('#modal_login div.modal-header > h3').innerText=title;
-	$('#modal_login').modal('show');
-}
-function register(){
-	//close login modal just incase its open
-	$('#modal_login').modal('hide');
-	$('#modal_register').modal('show');
-}
-//check for login
-// function isLoggedIn(){
-// 	loginStatus = null;
-// 	while(loginStatus === null){
-// fetch('check-login.php').then(response=>response.json())
-// 	.then(login=>{
-// 		loginStatus = login.status;
-// 	}).catch(err=>console.log(err));
-// 	}
-// 	return loginStatus;
-// }
-
 //display carousel with images
 function displayCarouselOnItemClick(){
 	let rows = document.querySelectorAll('.table-row');
@@ -117,28 +95,45 @@ for(let i=0; i<rows.length; i++){
 	rows[i].addEventListener('click',(e)=>{
 		let itemId = rows[i].childNodes[1].innerText;
 		//name of the item at nodelist 5
-		let itemName = rows[i].childNodes[5].innerText;
+		let itemName = rows[i].childNodes[3].innerText;
 		//whether the clicked cell should display images
 		if (e.target.hasAttribute('data-view-image-onclick')) {
 			//fetch images
 		let imageUrl = 'fetchImages.php?id='+itemId;
 		fetch(imageUrl).then(response=>response.text())
 		.then(response=>{
-			 
+			 //no images found
+			 if(response == 'fail'){
+				 $('#carouselImageViewInner').html(`
+            <div class="carousel-item active">
+              <div class="view">
+                <img src="images/slogo.png" class="d-block w-100" alt="Item Image">
+                <div class="mask rgba-black-light"></div>
+              </div>
+              <div class="carousel-caption">
+                <h3 class="h3-responsive">Superworkmates Price List</h3>
+                <p>Welcome to the new superworkmates price list.Get conversant with the prices of various items.</p>
+              </div>
+            </div>
+				 `);
+				 $('#modalImageView').modal('show');
+				 return;
+			 }
+			
 			//carousel items with images
 			_('#carouselImageViewInner').innerHTML=response;
 		})
 		.catch(err=>console.log(err));
 		
 		//open modal for viewing item images
-		_('#btnModalImageView').click();
-		_('#btnModalImageViewHeader').innerHTML=itemName;
+		$('#modalImageView').modal('show');
+		_('#modalImageViewHeader').innerHTML=itemName;
 		}
 	});
 }
 }
 //open post on pricelist modal
-$('#btnPostOnPricelist').on('click', (e)=>{
+$('#btnPostOnPricelist').on('click',()=>{
 //validate for login
 $('#modalAddToPricelist').modal('show');
 });
@@ -196,12 +191,7 @@ $('#formAddPricelistEntry').on('submit',(e)=>{
 	.then(response=>response.text())
 	.then(text=>{
 	$('#response_body').html(text);
-	//close after 5 seconds
-	// setTimeout(function(){
-	// 	$('#modalResponse').modal('hide');
-	// },4000);
-	//reset the form
-	_('#formAddPricelistEntry').reset.click();
+	_('#formAddPricelistEntry').resetm.click();
 	}).catch(err=>{
 		console.log(err);
 	});
@@ -354,13 +344,13 @@ displayCarouselOnItemClick();
 
 
 //item buy
- document.querySelectorAll('table td:nth-child(11) > button').forEach(btn=>{
+ document.querySelectorAll('button.buy-button').forEach(btn=>{
 	btn.addEventListener('click',(e)=>{
 
 		//open buy modal
-		let itemName = e.path[2].cells[1].innerHTML;
+		let itemName = e.target.getAttribute('data-item');
 		$('#modal_buy_product div.modal-header').html(`
-		Buy '${e.path[2].cells[1].innerHTML}' from '${e.path[2].cells[8].innerHTML}'
+		Buy '${e.target.getAttribute('data-item')}' from '${e.target.getAttribute('data-seller')}'
 		`);
 		$('#modal_buy_product').modal('show');
 		//modal form reset

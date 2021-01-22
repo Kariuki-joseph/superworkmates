@@ -5,7 +5,7 @@
         ?>
     
         <form action="logout.php" method="post">
-            <button type="submit" name="logout">Log Out</button>
+            <button type="submit" name="logout" class="btn bg-super-6 py-1 px-3">Log Out <i class="fa fa-sign-out"></i></button>
         </form>
         <br>
         <!--Upload Profile Picture or Show Profile Picture-->

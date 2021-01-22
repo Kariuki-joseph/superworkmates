@@ -68,11 +68,11 @@ session_start();
               <div class="dropdown">
                 <ul class="dropdown-menu">
                 <?php if (!isset($_SESSION['userid'])) { ?>
-                  <li class="dropdown-item" onclick="login()">Login</li>
+                  <li class="dropdown-item" onclick="login()">Login <i class="fa fa-sign-in"></i></li>
                   <li class="dropdown-divider"></li>
-                  <li class="dropdown-item">Register</li>
+                  <li class="dropdown-item" onclick="goTo('signup.php')">Register <i class="fa fa-user-plus"></i></li>
                   <?php }else{ ?>
-                    <li class="dropdown-item" onclick="logout()">Logout</li>
+                    <li class="dropdown-item" onclick="logout()">Logout <i class="fa fa-sign-out"></i></li>
                     <?php }?>
                 </ul>
               </div>
@@ -117,7 +117,10 @@ session_start();
         $('#modal_login div.modal-header > h3').text(title);
         $('#modal_login').modal('show');
       }
-
+      //redirect
+      function goTo(targetPage){
+        return window.location.href=targetPage;
+      }
     document.querySelector('form#formLogin').addEventListener('submit',(e)=>{
       e.preventDefault();
       let btnLogin = document.querySelector('form#formLogin button#btnLogin');

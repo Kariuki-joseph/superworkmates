@@ -11,6 +11,8 @@
 <?php
 include_once 'parts/header.php';
 include_once 'config.php';
+require_once 'classes/db.php';
+require_once 'classes/dbh.php';
 ?>
 
 <div class="d-flex justify-content-between">
@@ -125,8 +127,8 @@ if (isset($_SESSION['userid']) || isset($_SESSION['username'])) {
                 <option value="nil"> *Please Choose One* </option>
                 <?php 
                 //fetch categories
-                $category = new Category();
-                $categories = $category->getAll();
+                $dbh = new DBH();
+                $categories = $dbh->getTable('product_categories')->getAll()->excecute();
                 while ($cat = mysqli_fetch_array($categories)) {
                   ?>
                 <option><?php echo $cat['name'];?> </option>

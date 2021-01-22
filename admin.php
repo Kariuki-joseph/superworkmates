@@ -1,9 +1,11 @@
 <?php
 include ('dbConnect.php');
 include ('header_admin.php');
-include('config.php');
+include ('config.php');
 include_once 'parts/header.php';
-
+$trend = new Trends();
+require_once 'classes/db.php';
+require_once 'classes/dbh.php';
 $trends=$trends->getAllTrends();
 
 ?>
@@ -125,6 +127,61 @@ $trends=$trends->getAllTrends();
   <div class="col-sm-3"></div>
 </div>
 
+<div class="container">
+  <h2 class="text-center">Add Item categories</h2>
+  <div class="row">
+    <div class="col-sm-6">
+    <h3 class="text-center">Add category</h3>
+      <form id="form_add_product_categories">
+        <input type="text" name="category" id="product_category" class="form-control" placeholder="Enter category name">
+        <button type="submit" name="submit" class="btn btn-primary mt-3">Add</button>
+      </form>
+    </div>
+    <div class="col-sm-6">
+    <h3 class="text-center">Added categories</h3>
+      <ol id="product_categories">
+      <?php 
+      //get available categories
+      $dbh = new DBH();
+      $categories = $dbh->getTable('product_categories')->getAll()->excecute();
+      while($row = mysqli_fetch_array($categories)){
+      ?>
+        <li><?=$row['name']?></li>
+      <?php
+      }
+      ?>
+      </ol>
+    </div>
+  </div>
+</div>
 
+<?php 
+require_once 'general-scripts-sources.php';
+?>
+<script>
+$('#form_add_product_categories').on('submit',(e)=>{
+  e.preventDefault();
+  let category = $('#product_category').val();
+  fetch('connections/process-add-product-categories.php?cat='+category)
+  .then(response=>response.json())
+  .then(response=>{
+    if(response.status == 'success'){
+      //populate ul data
+      let lis = '';
+      for (let x = 0; x < response.data.length; x++) {
+        lis += 
+        `
+        <li>${response.data[x].name}</li>
+        ` 
+      }
+      $('#product_categories').html(lis);
+      $('#product_category').val(' ');
+    }else{
+      $('#product_categories').html(response.msg);
+    }
+  });
+
+})
+</script>
 <script src="scripts.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>

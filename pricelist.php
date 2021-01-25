@@ -167,11 +167,11 @@ if (isset($_SESSION['userid']) || isset($_SESSION['username'])) {
           </div>
           <div class="form-group">
             <label for="description">Description:</label>
-              <textarea name="description" id="description" placeholder="Describe the features of the product here..." rows="4" class="form-control"></textarea>
+              <textarea name="" id="description" placeholder="Describe the features of the product here..." rows="4" class="form-control"></textarea>
           </div>
           <div class="form-group">
             <label for="uses">Uses:</label>
-              <textarea name="uses" id="uses" placeholder="What are the uses of the product?" rows="4" class="form-control"></textarea>
+              <textarea name="" id="uses" placeholder="What are the uses of the product?" rows="4" class="form-control"></textarea>
           </div>
           <div class="form-group">
             <label for="itemImg">Select Photos</label>

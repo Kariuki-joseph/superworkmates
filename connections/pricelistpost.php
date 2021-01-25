@@ -17,7 +17,7 @@ session_start();
   $description = $_POST['description'];
   $place = mysqli_real_escape_string ($connect,$_POST['place']);
   $seller = mysqli_real_escape_string ($connect,$_POST['seller']);
-  $images = mysqli_real_escape_string ($connect,$_POST['images']);
+  $images = (empty($_POST['images'])) ? "" : mysqli_real_escape_string ($connect,$_POST['images']);
   $uses = $_POST['uses'];
   //new instance of users 
   $user = new User($_SESSION['userid']);

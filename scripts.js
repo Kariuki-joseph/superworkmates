@@ -176,6 +176,8 @@ $('#formAddPricelistEntry').on('submit',(e)=>{
 	//capture form data 
 	const formData = new FormData(_('#formAddPricelistEntry'));
 	formData.append("images",images.toString());
+	formData.append("description",tinyMCE.get('description').getContent());
+	formData.append("uses",tinyMCE.get('uses').getContent());
 	//send data
 	let postDataURL = "connections/pricelistpost.php";
 	let options = {

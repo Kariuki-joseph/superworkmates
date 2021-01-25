@@ -40,23 +40,23 @@ if (isset ($_SESSION['error'])){
     <form action="connections/processSignup.php" method="post" class="signupform">
                 <div class="form-group">
                 <label for="username">Favourite Name:</label>
-                  <input type="text" name="username" placeholder="Favourite Name" class="form-control">
+                  <input type="text" name="username" value="<?php echo isset($_SESSION['username'])? $_SESSION['username'] : ''?>" placeholder="Favourite Name"  class="form-control">
                 </div>
                 <div class="form-group">
                 <label for="email">Email:</label>
-                  <input type="text" name="email" placeholder="Email" class="form-control">
+                  <input type="text" name="email" value="<?php echo isset($_SESSION['username'])? $_SESSION['email'] : ''?>" placeholder="Email" class="form-control">
                 </div>
                 <div class="form-group">
                 <label for="phone">Enter your phone number (10 digits):</label>
-                  <input type="number" name="phone" placeholder="Phone Number" class="form-control">
+                  <input type="number" name="phone" value="<?php echo isset($_SESSION['username'])? $_SESSION['phone'] : ''?>" placeholder="Phone Number" class="form-control">
                 </div>
                 <div class="form-group">
                 <label for="password">Create a password</label>
-                  <input type="password" name="password" placeholder="Create Password" class="form-control">
+                  <input type="password" name="password" value="<?php echo isset($_SESSION['username'])? $_SESSION['password'] : ''?>" placeholder="Create Password" class="form-control">
                 </div>
                 <div class="form-group">
                 <label for="password2">Confirm your password:</label>
-                  <input type="password" name="password2" placeholder="Confirm Password" class="form-control">
+                  <input type="password" name="password2" value="<?php echo isset($_SESSION['username'])? $_SESSION['password2'] : ''?>" placeholder="Confirm Password" class="form-control">
                 </div>
                 </br>
                 <button type="submit" name="newsubmit" value="submit" class="btn-super mb-3">Sign Up</button>
@@ -64,7 +64,6 @@ if (isset ($_SESSION['error'])){
     </div>
     <div class="col-sm-3"></div>
   </div>
-   
 </div>
 <!--Fetching From Database-->
 

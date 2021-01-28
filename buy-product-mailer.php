@@ -5,7 +5,7 @@ if (isset($_POST['buy-item'])) {
     $username = mysqli_real_escape_string($connect, $_POST['username']);
     $phone = mysqli_real_escape_string($connect, $_POST['phone']);
     $itemName = $_POST['item'];
-    $userMessage = mysqli_real_escape_string($connect, $_POST['message']);
+    $userMessage = $_POST['message'];
    
     $message = "Hello, ".$username." has just sent a buy request to your item ".$itemName.". Contact him/her on: ".$phone.". Buyers message is: ".$userMessage.". <br> Thankyou.<br> Supeprworkmates-you don't have to work alone<br><br><br><br>";
     $message .="You are receiving this email because you listed your item for sale on superworkmates pricelist.";
@@ -16,7 +16,6 @@ if (isset($_POST['buy-item'])) {
     $user = new User($_POST['sellerId']);
         /*Sending the email */
         $to = $user->get('email');
-        die($user);
         $subject = 'Buy request for your item: '.'$itemName';
         $header = "From: <support@superworkmates.com>\r\n";
         $header .= "Reply-To: support@superworkmates.com \r\n";
@@ -34,9 +33,6 @@ if (isset($_POST['buy-item'])) {
                 $mail->Port = 465;  
                 $mail->Username = 'support@superworkmates.com';
                 $mail->Password = '5 Potatoex1';   
-        
-        //   $path = 'reseller.pdf';
-        //   $mail->AddAttachment($path);
         
                 $mail->IsHTML(true);
                 $mail->From="support@superworkmates.com";

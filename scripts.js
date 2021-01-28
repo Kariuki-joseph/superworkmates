@@ -370,6 +370,7 @@ displayCarouselOnItemClick();
 			let buyerDetails = new FormData(_('#formBuyItem'));
 			buyerDetails.append('item',itemName);
 			buyerDetails.append('sellerId', sellerId);
+			buyerDetails.append('message',tinyMCE.get('message').getContent());
 			buyerDetails.append('buy-item','true');
 
 			fetch('buy-product-mailer.php', {

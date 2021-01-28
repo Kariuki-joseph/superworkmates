@@ -313,7 +313,7 @@ $user = new User($_SESSION['userid']);
             </div>
             <div class="form-group container">
             <label for="message">Brief message to the seller</label>
-              <textarea name="message" id="message" cols="30" rows="4" class="form-control">Is this still available?</textarea>
+              <textarea name="" id="message" cols="30" rows="4" class="form-control">Is this still available?</textarea>
             </div>
           </div>
         </form>

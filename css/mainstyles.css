@@ -1,58 +1,253 @@
-body {margin: 20px;}
-.navbar {
-
-  color: red;
-  display :flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-
+.body {margin-right: 10px;
+        margin-left: 10px;}
+/*new - 29th Jan, 2021 Friday*/
+@media(min-width:768px) {
+      .topbar {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        /*grid-template-columns: 1fr 1fr 1fr;*/
+      }
+      .top1 {
+        flex:1;
+      
+      }
+      .top2 {
+        flex:3;
+      }
+      .top3 {
+        flex:1;
+      }
+      .greeting .greeting-name {
+        font-size: 3rem;
+      }
 }
+.topbar {
+  justify-content: center;
+  align-items: center;
+   
+}
+
+.topbar div {
+  padding: 3px;
+}
+@media(max-width:768px) {
+.top1 {
+  display: none;
+}
+.top3 {
+display: none;
+}
+}
+
+.top1 .logo img {
+  width: 140px;
+}
+
+.top1 .logo {
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  }
+
+.top3 .user-image img {
+  height: 140px;
+  border-radius: 50%;
+}
+
+.topbar .top3 .user-image  {
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/*end of new*/
+
 .greeting {
   text-align: center;
-  padding: 30px;
+  padding: 0px;
+  display: inline;
   }
   
   .greeting .greeting-name {
-  font-size: 3rem;
+  /*font-size: 3rem;*/
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   background: linear-gradient(to right,white,rgba(255, 0, 102, 1),chartreuse,rgba(255, 0, 102, 1),white);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  display: inline;
+  text-align: center;
+  padding: 0px;
   }
 
-.navbar a {margin: 10px;
- border-bottom:  5px solid chartreuse;
+@media(min-width:768px){
+  .phone-menu {
+    display: none;
+    }
+  .phone-user-image-title {
+    display: none;
+  }
+}
+@media(max-width:768px){
+.phone-menu {
+    display: block;
+    color: rgba(255, 0, 102, 1);
+    font-size: 24px;
+    box-sizing: border-box;
+    text-align: left;
+    align-items: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+.phone-user-image-title {
+  display: block;
+}
+}
+
+.phone-menu:hover .phone-nav-label {
+  color: chartreuse;
+  font-size: bold;
+}
+
+/*phone nav bar styles*/
+.phone-nav-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  
+}
+
+.phone-nav-bar .phone-menu {
+  flex: 2;
+  padding: 5vmin;
+}
+
+.phone-nav-bar .phone-user-image-title {
+  flex: 3;
+  box-sizing: border-box;
+  text-align: right;
+  align-items: center;
+  vertical-align: middle;
+  padding: 5vmin;
+}
+
+.icon-and-name {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.icon-and-name .user-title {
+  padding-right: 2vmin;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 24px;
+  color: rgba(255, 0, 102, 1);
+}
+
+.phone-menu-nav {
+  position: relative;
+  display: none;
+}
+.phone-menu:hover .phone-menu-nav {
+  display: block;
+  position: absolute;
+  height: auto; 
+  box-sizing: border-box;
+  background-color:chartreuse;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.phone-menu-nav .phone-menu-nav-items .phone-nav-item {
+  border-bottom: 1px solid rgba(255, 0, 102, 1);
+  text-align: center;
+  color: black;
+}
+
+.phone-menu-nav .phone-menu-nav-items .phone-nav-item:last-child {
+  border-bottom: none;
+  color: purple;
+}
+
+.phone-menu-nav .phone-menu-nav-items a {
+  text-decoration: none;
+}
+
+.phone-menu-nav .phone-menu-nav-items .phone-nav-item a .phone-menu-item:hover {
+  color: chartreuse;
+  background-color: black;
+  font-weight: bold;
+}
+
+.phone-menu-nav .phone-menu-nav-items .phone-nav-item a .phone-menu-item {
+  padding: 3px;
+}
+
+/*prof pic and show area */
+.phone-user-image-title img{
+  width: 40px;
+  border-radius: 50%;
+}
+
+.icon-and-name a {
+  text-decoration: none;
+}
+
+.icon-and-name:hover a .user-title{
+  font-size: bold;
+  color: chartreuse;
+}
+
+@media(min-width:768px) {
+  .navbar {
+    display :flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+}
+@media(max-width:768px) {
+  .navbar {
+    display :none;
+  }
+}
+
+.navbar a {
+margin: 10px;
 padding-bottom: 10px;
+border-bottom: 3px solid chartreuse;
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 color: chartreuse;
 font-weight: bold;
-
-}
-.navbar a:last-child {
-  border-bottom: none;
 }
 
-a {
+a:hover {
   text-decoration:none;
+}
 
+.navbar div:hover{
+  color:rgba(255, 0, 102, 1);
+  font-size: bolder;
+  text-decoration-line: none;
 }
 
 .pagetop {
   background-color: black;
 }
-
-.sehemu2 {
-  display: flex;
-  flex-wrap: wrap;
+@media(min-width:768px) {
+  .sehemu2 {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 .sehemu2 .a {
   flex: 3;
+  order: 1;
   border: 1px solid;
   border-color: chartreuse;
   margin-right: 1%;
   height: auto;
-  background-image: url('./images/flower1.jpg');
+  background-image: url('./Superworkmates Logo.png');
   background-position: center;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   text-align: center;
@@ -61,15 +256,26 @@ a {
 }
 .sehemu2 .b {
   flex: 1;
+  order: 2;
   border: 1px solid;
   border-color: chartreuse;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+@media(max-width:768px) {
+  .b-image {
+  display: none;
+  }
+}
 .b-image img {
   width: 100%;
 }
 
+@media(max-width:768px) {
+  .a {
+  display: none;
+  }
+}
 .a {
   color: chartreuse;
 }
@@ -90,9 +296,11 @@ a {
   padding: 0px;
 }
 
-.part3 {
-  display: flex;
-  justify-content: space-between;
+@media(min-width:768px){
+  .part3 {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 .p3a {
@@ -159,33 +367,67 @@ animation-duration: 5s;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.mtitle {font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+.mtitle, .f2 {font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+/*new - 29th Jan 2021, Friday*/
+@media(max-width:768px) {
+.f2 div {
+text-align: center;
+}
 }
 
-.f2 {
-  display: flex;
-  justify-content: space-between;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+@media(min-width:768px){
+  .f2 {
+    display: flex;
+    justify-content: space-between;
+  }
+  .f2p1 {
+    flex:1;
+    text-align: right;
+  }
+  
+  .f2p2 {
+    flex:2;
+    text-align: center;
+  }
+  
+  .f2p3 {
+    flex:1;
+    text-align: left;
+  }
+ 
+}
+@media(max-width:768px){
+  .line {
+    border-bottom: 1px solid white;
+    margin-bottom: 5px;
+  }
+}
+@media(min-width:768px){
+  .f3 img {
+    display: none;
+  }
 }
 
-.f2p1 {
-  flex:1;
-  text-align: right;
+.f3 img {
+  width: 80%;
 }
 
 .f2p2 {
-  flex:2;
-  text-align: center;
+  color: purple;
 }
 
-.f2p3 {
-  flex:1;
-  text-align: left;
+.f2 {
+  margin-top: 5vmin;
 }
+/*end of new - 29th Jan 2021, Friday*/
+
+
 
 .f3 {
   text-align: center;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: purple;
 }
 
 .footer {background-color: chartreuse;
@@ -225,6 +467,7 @@ hr {
 .signupform label {
   display: block;
   padding: 5px;
+}
 /*****************************signup styles.css*********************/
 /*signup page styles*/
 
@@ -233,7 +476,7 @@ hr {
   align-self: center;
 }
 
-}
+
 
 
 .errortab {

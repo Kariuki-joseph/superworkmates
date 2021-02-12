@@ -1,0 +1,17 @@
+.office-dashboard {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+.office-dashboard div{
+padding: 30px;
+}
+.office-dashboard .part1-profile {
+  background-color: blueviolet;
+}
+.office-dashboard .part2-projects {
+background-color: chartreuse;
+}
+.office-dashboard .part3-start-something {
+  background-color: cyan;
+
+}

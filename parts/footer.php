@@ -14,6 +14,8 @@
             <p> <div class="f2a"> WhatsApp : +254 729 515 273 </div> </p>
           </div>
 
+<div class="line"></div>
+
           <div class="f2p2">
             <p>First Made</p>
             <p>@</p>
@@ -23,10 +25,12 @@
             <p>Joseph Njenga, Joel Njoroge W. & Team</p>
           </div>
 
+<div class="line"></div>
+
           <div class="f2p3">
             <p>Email: <a href="mailto: support@superworkmates.com">support@superworkmates.com</a></p>
-            <p>Phone:</p>
-            <p>Phone:</p>
+            <p>Phone: +254 729 515 273</p>
+            <p>Phone: +254 758 826 552</p>
             <p>P.O BOX 14073</p>
             <p>Nakuru</p>
           </div>
@@ -36,7 +40,11 @@
       <hr/>
 
         <div class="f3">
-           <p> &copy; Superworkmates 2020 </p>
+          <img src="Superworkmates Logo.png" alt="Logo Missing">
+            <h4> &copy; </h4>
+            <p> The Superworkmates Community </p>
+            <p> 2020 - 2021 </p>
+              <div class="line"></div>
            <p>You Don't Have To Work Alone!</p>
             
         </div>

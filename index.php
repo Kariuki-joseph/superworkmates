@@ -14,7 +14,7 @@ include_once 'parts/header.php';
 // include_once 'home.html';
 ?>
       
-
+<div class="body">
 <!--Part 2-->
     <div class="sehemu2">
       <div class="a" style="background-image:url(images/flower1.jpg);">
@@ -63,6 +63,8 @@ include_once 'parts/header.php';
   </div>
   
 </div>
+<!--The Superworkmates Community-->
+13500-2300lit
 
 <!--Part 4-->
 <div class="part4">
@@ -107,7 +109,12 @@ include_once 'parts/header.php';
 
 </div>
 
+<div class="test">
+<button> Call Modal</button>
+</div>
+
 <!--footer-->
+</div>
 
 <?php
 include_once 'parts/footer.php';

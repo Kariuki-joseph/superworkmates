@@ -136,7 +136,7 @@ include_once 'config.php';
           </div>
           <div class="form-group">
             <label for="unitlabel">For each? (Name of a single piece/unit of the item):</label>
-              <input type="text" name="unitlabel" id="unitlabel" placeholder="e.g. tv/jacket/car/loaf/litre " class="form-control">
+              <input type="text" name="unitlabel" id="unitlabel" placeholder="e.g. tv/jacket/car/loaf/litre/kg " class="form-control">
           </div>
           <div class="form-group">
             <label for="quality">Quality:</label>

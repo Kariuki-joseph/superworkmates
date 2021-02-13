@@ -10,36 +10,19 @@ if (isset($_GET['params'])) {
 	$categoriesArr = $params->categories;
 
 	$location = implode("','", $locationArr);
-	$categories = implode("','", $categoriesArr);
-	//categories only
-	if (empty($locationArr) && !empty($categoriesArr)) {
-	$sql = "SELECT * FROM theproducts WHERE item LIKE '%$searchStr%' OR category IN('$categories') LIMIT 10";
-	// die($sql);
+  $categories = implode("','", $categoriesArr);
+  
+  $sql = "SELECT * FROM theproducts WHERE item LIKE '%$searchStr%'";
+  if (!empty($categories)) {
+    $sql .= " AND category IN('$categories')";
+  }
+  if(!empty($location)){
+    $sql .= " AND place IN('$location')";
+  }
 	$search = new Search($sql);
-	$search->printResults($searchStr);
-	return;
-	}
-	//location only
-	if (empty($categoriesArr) && !empty($locationArr)) {
-	$sql = "SELECT * FROM theproducts WHERE item LIKE '%$searchStr%' AND(place IN('$location')) LIMIT 10";
-	$search = new Search($sql);
-	$search->printResults($searchStr);
-	return;
-	}
-	//categories and location
-	if (!empty($locationArr) && !empty($categoriesArr)) {
-	$sql = "SELECT * FROM theproducts WHERE item LIKE '%$searchStr%' AND(place IN('$location') OR category IN('$categories')) LIMIT 10";
-	$search = new Search($sql);
-	$search->printResults($searchStr);
-	return;
-	}
-	//none
-	if (empty($locationArr) && empty($categoriesArr)) {
-	$sql = "SELECT * FROM theproducts WHERE item LIKE '%$searchStr%' LIMIT 10";
-	$search = new Search($sql);
-	$search->printResults($searchStr);
-	return;
-	}
+  $search->printResults($searchStr);
+  
+  
 }elseif (isset($_GET['id'])) {
 	$item = new Item($_GET['id']);
 	?>
@@ -112,5 +95,48 @@ if (isset($_GET['params'])) {
                   
               <tr>";
 }
+}
+
+if (isset($_GET['filters'])) {
+  require_once 'classes/db.php';
+  $params = json_decode($_GET['filters']);
+	$searchStr = $params->search;
+	$locationArr = $params->location;
+	$categoriesArr = $params->categories;
+
+	$location = implode("','", $locationArr);
+  $categories = implode("','", $categoriesArr);
+  
+  $sql = "SELECT * FROM theproducts WHERE item LIKE '%$searchStr%'";
+  if (!empty($categories)) {
+    $sql .= " AND category IN('$categories')";
+  }
+  if(!empty($location)){
+    $sql .= " AND place IN('$location')";
+  }
+	
+  $query = mysqli_query(MainUsers::conn(), $sql);
+  $res = [];
+  while($row = mysqli_fetch_array($query)){
+    array_push($res, array(
+      'id'=>$row['id'],
+      'item'=>$row['item'],
+      'category'=>$row['category'],
+      'price'=>$row['price'],
+      'quantity'=>$row['quantity'],
+      'unit_price'=>$row['unit_price'],
+      'unit'=>$row['unit'],
+      'quality'=>$row['quality'],
+      'description'=>$row['description'],
+      'place'=>$row['place'],
+      'seller'=>$row['seller'],
+      'uses'=>$row['uses'],
+      'seller_id'=>$row['seller_id'],
+      'datetime'=>$row['datetime']
+    ));
+  }
+  
+  echo json_encode($res);
+  
 }
 ?>

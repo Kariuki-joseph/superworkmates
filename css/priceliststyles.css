@@ -72,7 +72,7 @@ position: absolute;
 right: 0px;
 background: rgba(127,255,0,1);
 width: 50%;
-transform: translateX(100%);
+/* transform: translateX(100%); */
 transition: transform 0.7s linear;
 }
 .filters-open{
@@ -88,4 +88,28 @@ transform: translateX(0%);
 }
 .search-results li:hover{
   background: rgba(125,125,125,0.6);
+}
+.categories-filters-wrapper{
+  max-height: 314px;
+  overflow-y: scroll;
+}
+.filterCategories{  
+  width: 100ppx;
+  overflow-x: scroll;
+}
+.filterCategories input{
+  /* overflow: scroll; */
+  display: inline;
+}
+.filterCategories input:focus{
+outline: 0;
+}
+.filter{
+  border: 1px solid #7FFF00;
+  padding: 5px;
+  border-radius: 13px;
+  user-select: none;
+}
+.filter-active{
+  border: 2px solid brown;
 }

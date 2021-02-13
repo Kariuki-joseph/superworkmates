@@ -133,23 +133,28 @@ class Search{
 	function __construct($sql){
 	$query = mysqli_query(MainUsers::conn(),$sql);
 	$this->searchResults = $query;
-	// die(mysqli_num_rows($query));
 	}
 	//prints search results
 	function printResults($search){
 		if (mysqli_num_rows($this->searchResults)>0) {
+			$index = 0;
 		while ($row = mysqli_fetch_array($this->searchResults)) {
-			$itemName = (strlen($row['item'])>20)? substr($row['item']."...",0,20):$row['item'];
+			if($index == 10){
+			return;
+			}
+			$index ++;
+
+			$itemName = (strlen($row['item'])>25)? substr($row['item'],0,30)."...":$row['item'];
 			?>
 <li data-id="<?php echo $row['id']; ?>">
 	<?php echo $itemName; ?>
 </li>
-			<?php
+		<?php
 		}
 	}else{
 		?>
 <li class="bg-danger">
-	<i>No records for '<b><?php echo $search; ?></b>' were found. Please refine your search and try again.</i>
+	<i>No records for '<b><?php echo $search; ?></b>' were found. Please refine your search or filters then try again.</i>
 </li>
 		<?php
 	}

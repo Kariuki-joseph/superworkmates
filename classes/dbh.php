@@ -22,6 +22,12 @@ class DBH {
         return $this;
         }
     }
+    public function getDistinct($col){
+        $sql = "SELECT DISTINCT  $col FROM $this->table";
+        $this->sql = $sql;
+        return $this;
+    }
+
     public function insert($params){
         foreach ($params as $key => $value) {
             $keys[] = $key;

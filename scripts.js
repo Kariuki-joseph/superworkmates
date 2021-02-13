@@ -144,209 +144,55 @@ function loadAllRowItems() {
 	_('.pricelistable').innerHTML=response;
 	}).catch(err=>console.log(err));
 }
-///////////////////////////////funtions/////////////
-//upload image
-const images=[];
-$('#itemImg').on('change',()=>{
-	let selImg = _('#itemImg').files[0];
-		images.push(selImg.name);
-		addToPreview(selImg);
-		
-let formData = new FormData(_('#formAddPricelistEntry'));
-let url = 'image-uploader.php';
-let options = {
-	method:'POST',
-	body:formData
-}
-//fetch
-fetch(url,options)
-.then(response=>response.text())
-.then(text=>{
-
-})
-.catch(err=>{
-	console.log(err);
-});
-});
-
-//send a pricelist item
-$('#formAddPricelistEntry').on('submit',(e)=>{
-	e.preventDefault();
-
-	//capture form data 
-	const formData = new FormData(_('#formAddPricelistEntry'));
-	formData.append("images",images.toString());
-	formData.append("description",tinyMCE.get('description').getContent());
-	formData.append("uses",tinyMCE.get('uses').getContent());
-	//send data
-	let postDataURL = "connections/pricelistpost.php";
-	let options = {
-		method:'POST',
-		body:formData
-	}
-	//hide the modal
-	_('#btnCancel').click();
-	//open response modal
-	$('#modalResponse').modal('show');
-
-	fetch(postDataURL,options)
-	.then(response=>response.text())
-	.then(text=>{
-	$('#response_body').html(text);
-	_('#formAddPricelistEntry').resetm.click();
-	}).catch(err=>{
-		console.log(err);
-	});
-});
-
-//click event to row items
-displayCarouselOnItemClick();
-
-//location and categories filters
-let locationFilters=[];
-$('#filterFormLocation input').on('change',(e)=>{
-	let checkbox = e.target;
-	switch(checkbox.checked){
-		case true:
-		//add if it didn't exist
-		if (!locationFilters.includes(checkbox.value) && checkbox.value != 'any') {
-			locationFilters.push(checkbox.value);
-		}
-		break;
-		case false:
-		//remove if it exists
-		if (locationFilters.includes(checkbox.value)) {
-			let index = locationFilters.indexOf(checkbox.value);
-			locationFilters.splice(index,1);
-		}
-		//uncheck the any checkbox
-		document.querySelectorAll('#filterFormLocation input')[0].checked=false;
-		break;
-	}
-});
+//add items to filters 
 let categoriesFilters=[];
-$('#filterFormCategories input').on('change',(e)=>{
-let checkbox = e.target;
-	switch(checkbox.checked){
-		case true:
-		//add if it didn't exist
-		if (!categoriesFilters.includes(checkbox.value) && checkbox.value != 'any') {
-			categoriesFilters.push(checkbox.value);
+let locationFilters=[];
+function addFilters(filterCategory,filterValue){
+	if(typeof(filterValue) != 'string'){
+		let filters = Array.from(filterValue);
+		//add all items to filters
+		for(let x=1; x<filters.length; x++){
+			let index = filterCategory.indexOf(filters[x].value);
+			if(index == -1){
+			filterCategory.push(filters[x].value);
+			}			
 		}
-		break;
-		case false:
-		//remove if it exists
-		if (categoriesFilters.includes(checkbox.value)) {
-			arrayRemove(categoriesFilters,checkbox.value);
+	}else{
+		if(filterValue != 'Any' && filterCategory.indexOf(filterValue) == -1){
+			filterCategory.push(filterValue);
 		}
-		//uncheck the any checkbox
-		document.querySelectorAll('#filterFormCategories input')[0].checked=false;
-		break;
 	}
-
-});
-
-//opening more filters
-$('#btnOpenFilters,.filters .close,#btnApplyFilters,#btlnResetFilters').on('click',()=>{
-	$('.filters').toggleClass('filters-open');
-});
-//reseting filters
-//fill or remove array values on clicking any
-let chkboxCat = $('#filterFormCategories input');
-let chkboxLoc = $('#filterFormLocation input');
-chkboxCat[0].addEventListener('click',()=>{
-switch(chkboxCat[0].checked){
-	case true:
-	//check all others
-	categoriesFilters = [];
-	for(let x=1; x<chkboxCat.length; x++){
-	chkboxCat[x].checked=true;
-	//add items to array
-	categoriesFilters.push(chkboxCat[x].value);
-	}
-	break;
-	case false:
-	//uncheck all others
-	for(let x=0; x<chkboxCat.length; x++){
-	let index = categoriesFilters.indexOf(chkboxCat[x].value);
-	//check availability in the array
-	if (index > -1) {
-		categoriesFilters.splice(index,1);
-	}
-	chkboxCat[x].checked=false;
-	}
-	break;
-}
-});
-
-chkboxLoc[0].addEventListener('click',()=>{
-switch(chkboxLoc[0].checked){
-	case true:
-	//check all others
-	locationFilters = [];
-	for(let x=1; x<chkboxLoc.length; x++){
-	locationFilters.push(chkboxLoc[x].value);
-	chkboxLoc[x].checked=true;
-	}
-	break;
-	case false:
-	//uncheck all others
-	for(let x=0; x<chkboxLoc.length; x++){
-	arrayRemove(locationFilters,chkboxLoc[x].value);
-	click(chkboxLoc[x]);
-	}
-	break;
-}
-});
-
-//items searching
-$('#search').on('keypress keydown keyup',(e)=>{
-	let searchStr = _('#search').value;
-if (searchStr.length == 0 || searchStr == ' ') {
-	$('#search_results').html('');
-	if (e.key == 'Backspace' && searchStr.length == 0) {
-		loadAllRowItems();
- }
-	return;
 }
 
-//get filters
-let searchParams={};
-searchParams.search=$('#search').val();
-searchParams.location=locationFilters;
-searchParams.categories=categoriesFilters;
-
-//fetch
-let SEARCH_URL = "search.php?params="+JSON.stringify(searchParams);
-fetch(SEARCH_URL).then(response=>response.text())
-.then(response=>{
-//display
-$('#search_results').html(response);
-//click for each result item
-let results = _A('#search_results li');
-for(let x=0; x<results.length; x++){
-results[x].addEventListener('click',(e)=>{
-$('#search_results').empty();
-let itemId = e.target.getAttribute('data-id');
-//fetch
-let SEARCH_URL = "search.php?id="+itemId;
-fetch(SEARCH_URL).then(response=>response.text())
-.then(response=>{
-//display filtered data
-_('.pricelistable').innerHTML=response;
-displayCarouselOnItemClick();
-}).catch(err=>console.log(err));
-});
+//remove items from filters
+function removeFilters(filterCategory, filterValue){
+	if (typeof(filterValue) != 'string') {
+		let filters = Array.from(filterValue);
+		for (let x = 0; x < filters.length; x++) {
+			let index = filterCategory.indexOf(filters[x].value);
+			if(index != -1){
+				filterCategory.splice(index,1);
+			}
+		}
+	}else{
+		let index = filterCategory.indexOf(filterValue);
+		if(index != -1){
+			filterCategory.splice(index,1);
+		}
+	}
 }
-}).catch(err=>console.log(err));
-});
+//populate filters
+function populateSearchData(){
+	//get filters
+	let searchParams={};
+	searchParams.search=$('#search').val();
+	searchParams.location=locationFilters;
+	searchParams.categories=categoriesFilters;
+	return JSON.stringify(searchParams);
+}
 
-//check any by default
-// click($('#filterFormCategories input')[0]);
-
-
-//item buy
- document.querySelectorAll('button.buy-button').forEach(btn=>{
+function revokeBuyListeners(){
+	 document.querySelectorAll('button.buy-button').forEach(btn=>{
 	btn.addEventListener('click',(e)=>{
 
 		//open buy modal
@@ -370,7 +216,7 @@ displayCarouselOnItemClick();
 			let buyerDetails = new FormData(_('#formBuyItem'));
 			buyerDetails.append('item',itemName);
 			buyerDetails.append('sellerId', sellerId);
-			buyerDetails.append('message',tinyMCE.get('message').getContent());
+			// buyerDetails.append('message',tinyMCE.get('message').getContent());
 			buyerDetails.append('buy-item','true');
 
 			fetch('buy-product-mailer.php', {
@@ -413,7 +259,209 @@ displayCarouselOnItemClick();
 		})
 	})
 })
+}
 
+function displayFilteredData(){
+	//display filtered data
+	let filterParams = populateSearchData();
+	let FILTER_URL = "search.php?filters="+filterParams;
+		fetch(FILTER_URL).then(response=>response.json())
+		.then(response=>{
+			//clear existing row items
+			_A('tr.table-row').forEach((tr)=>tr.innerHTML='');
+			let tr=`
+					<tr class="table-header"> 
+			          <div class="thead">
+			            <th>Item ID</th>
+			            <th>Item</th>
+			            <th>Price</th>
+			            <th>Quantity</th>
+			            <th>Unit Price</th>
+			            <th>Quality</th>
+			            <th>Description</th>
+			            <th>Seller</th>
+			            <th>Place</th>
+			            <th>Uses</th>
+			            <th>Date and Time</th>
+			            <th>Buy</th>
+			          </div>
+			        </tr>
+						`;
+			
+			for (let x = 0; x < response.length; x++) {
+				const data = response[x];
+				tr +=`
+				<tr class='table-row'> 
+                  <td data-view-image-onclick="true" data-content="id">${data.id}</td> 
+                  <td data-view-image-onclick="true" id='itemName' class="item-name">${data.item}</td>
+                  <td data-view-image-onclick="true">KSh. ${data.price.toLocaleString()}</td>
+                  <td data-view-image-onclick="true">${data.quantity}</td>
+                  <td data-view-image-onclick="true">KSh. ${data.unit_price} per ${data.unit}</td>
+                  <td data-view-image-onclick="true">${data.quality}</td>
+                  <td data-view-image-onclick="true">${data.description}</td>
+                  <td id="td_seller">${data.seller}</td>
+                  <td data-view-image-onclick = "true">${data.place}</td>
+                  <td data-view-image-onclick = "true">${data.uses}</td>
+                  <td data-view-image-onclick = "true">${data.datetime}</td>
+                  <td><button class='buy-button' 
+                  data-seller_id="${data.seller_id}"
+                  data-item="${data.item}"
+                  data-seller="${data.seller}">Buy</button></td>
+                  
+              <tr>
+			`;
+			}
+
+		_('.pricelistable').innerHTML=tr;
+		//revoke images and buy button listeners
+		displayCarouselOnItemClick();
+		revokeBuyListeners();
+		}).catch(err=>console.log(err));
+}
+///////////////////////////////funtions/////////////
+//upload image
+const images=[];
+$('#itemImg').on('change',()=>{
+	let selImg = _('#itemImg').files[0];
+		images.push(selImg.name);
+		addToPreview(selImg);
+		
+let formData = new FormData(_('#formAddPricelistEntry'));
+let url = 'image-uploader.php';
+let options = {
+	method:'POST',
+	body:formData
+}
+//fetch
+fetch(url,options)
+.then(response=>response.text())
+.then(text=>{
+
+})
+.catch(err=>{
+	console.log(err);
+});
+});
+
+//send a pricelist item
+$('#formAddPricelistEntry').on('submit',(e)=>{
+	e.preventDefault();
+
+	//capture form data 
+	const formData = new FormData(_('#formAddPricelistEntry'));
+	formData.append("images",images.toString());
+	// formData.append("description",tinyMCE.get('description').getContent());
+	// formData.append("uses",tinyMCE.get('uses').getContent());
+	//send data
+	let postDataURL = "connections/pricelistpost.php";
+	let options = {
+		method:'POST',
+		body:formData
+	}
+	//hide the modal
+	_('#btnCancel').click();
+	//open response modal
+	$('#modalResponse').modal('show');
+
+	fetch(postDataURL,options)
+	.then(response=>response.text())
+	.then(text=>{
+	$('#response_body').html(text);
+	_('#formAddPricelistEntry').resetm.click();
+	}).catch(err=>{
+		console.log(err);
+	});
+});
+
+//click event to row items
+displayCarouselOnItemClick();
+
+//location and categories filters
+$('#filterFormCategories').on('click',(e)=>{
+	let input = e.target.value;
+	let elems = e.target.parentNode.querySelectorAll('input');
+	let elem = e.target;
+
+(e.target.classList.contains('filter') && !e.target.classList.contains('filter-all')) ? e.target.classList.toggle('filter-active'): '';
+e.target.parentNode.querySelectorAll('input').forEach(input=>!input.classList.contains('filter-active') ? e.target.parentNode.querySelector('.filter-all').classList.remove('filter-active') : '');
+(e.target.classList.contains('filter-all')) ? e.target.parentNode.querySelectorAll('input').forEach(inp=>inp.classList.add('filter-active')) : '';
+(input == 'Any') ? addFilters(categoriesFilters,_A('#filterFormCategories input')) : addFilters(categoriesFilters,input);
+//remove array item if exists in the array
+elems.forEach(elem=>!elem.classList.contains('filter-active') ? removeFilters(categoriesFilters, elem.value) : '');
+
+//display filtered data
+displayFilteredData();
+});
+
+$('#filterFormLocation').on('click',(e)=>{
+	let input = e.target.value;
+	let elems = e.target.parentNode.querySelectorAll('input');
+	let elem = e.target;
+
+	(e.target.classList.contains('filter') && !e.target.classList.contains('filter-all')) ? e.target.classList.toggle('filter-active'): '';
+	e.target.parentNode.querySelectorAll('input').forEach(input=>!input.classList.contains('filter-active') ? e.target.parentNode.querySelector('.filter-all').classList.remove('filter-active') : '');
+	(e.target.classList.contains('filter-all')) ? e.target.parentNode.querySelectorAll('input').forEach(inp=>inp.classList.add('filter-active')) : '';
+	(input == 'Any') ? addFilters(locationFilters,_A('#filterFormLocation input')) : addFilters(locationFilters,input);
+	//remove array item if exists in the array
+	elems.forEach(elem=>!elem.classList.contains('filter-active') ? removeFilters(locationFilters, elem.value) : '');
+
+	displayFilteredData();
+	});
+$('#btnLocation').on('click', ()=>{
+	$('#filterFormCategories').removeClass('d-block').addClass('d-none');
+	$('#filterFormLocation').removeClass('d-none').addClass('d-block');
+
+	$('#btnCategories').removeClass('bg-info');
+	$('#btnLocation').addClass('bg-info');
+});
+$('#btnCategories').on('click', ()=>{
+	$('#filterFormCategories').removeClass('d-none').addClass('d-block');
+	$('#filterFormLocation').removeClass('d-block').addClass('d-none');
+
+	$('#btnLocation').removeClass('bg-info');
+	$('#btnCategories').addClass('bg-info');
+});
+//items searching
+$('#search').on('keypress keydown keyup',(e)=>{
+	let searchStr = _('#search').value;
+if (searchStr.length == 0 || searchStr == ' ') {
+	$('#search_results').html('');
+	if (e.key == 'Backspace' && searchStr.length == 0) {
+		populateSearchData();
+		displayFilteredData();
+		removeFilters();
+ }
+	return;
+}
+//get data in the filters
+ let searchParams = populateSearchData();
+//fetch
+let SEARCH_URL = "search.php?params="+searchParams;
+fetch(SEARCH_URL).then(response=>response.text())
+.then(response=>{
+//display
+$('#search_results').html(response);
+//click for each result item
+let results = _A('#search_results li');
+for(let x=0; x<results.length; x++){
+results[x].addEventListener('click',(e)=>{
+$('#search_results').empty();
+let itemId = e.target.getAttribute('data-id');
+//fetch
+let SEARCH_URL = "search.php?id="+itemId;
+fetch(SEARCH_URL).then(response=>response.text())
+.then(response=>{
+//display filtered data
+_('.pricelistable').innerHTML=response;
+displayCarouselOnItemClick();
+}).catch(err=>console.log(err));
+});
+}
+}).catch(err=>console.log(err));
+});
+
+//buy listeners
+revokeBuyListeners();
 //reseting modal buy item 
 function closeBuyModal(){
 	_('#formBuyItem').style.display='block';

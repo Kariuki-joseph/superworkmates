@@ -4,7 +4,7 @@
 <head>      
 <link rel="stylesheet" href="css/priceliststyles.css">
 <title>Price List | Anything Anywhere </title>
-<script src="https://cdn.tiny.cloud/1/xblvkgkykovpyemtrb2qyxjg7048tcugw1vv0ewykk46kv57/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<!-- <script src="https://cdn.tiny.cloud/1/xblvkgkykovpyemtrb2qyxjg7048tcugw1vv0ewykk46kv57/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
 </head>
 <body>
 
@@ -15,26 +15,55 @@ require_once 'classes/db.php';
 require_once 'classes/dbh.php';
 ?>
 
-<div class="d-flex justify-content-between">
-<!--login to post on pricelist-->
-<?php if(isset($_SESSION['userid']) || isset($_SESSION['username'])){?>
-<button class="btn btn-primary m-1 btn-lg" id="btnPostOnPricelist"><h5>Post on pricelist</h5></button>
-<?php
-}else{
-?>
-<button class="btn btn-primary m-1 btn-lg" onclick="login('Login to post on superworkmates pricelist')"><h5>Post on pricelist</h5></button>
-<?php
-}
+<div class="row">
+  <div class="col-sm-4">
+      <!--login to post on pricelist-->
+    <?php if(isset($_SESSION['userid']) || isset($_SESSION['username'])){?>
+    <button class="btn btn-primary m-1 btn-lg" id="btnPostOnPricelist"><h5>Post on pricelist</h5></button>
+    <?php
+    }else{
+    ?>
+    <button class="btn btn-primary m-1 btn-lg" onclick="login('Login to post on superworkmates pricelist')"><h5>Post on pricelist</h5></button>
+    <?php
+    }
+    ?>
+  </div>
+  <div class="col-sm-8 pt-2">
+    <button class="btn bg-super-6 bg-info" id="btnCategories">Categories</button>
+    <button class="btn bg-super-6" id="btnLocation">Location</button> 
+  </div>
+<!-- <button id="btnOpenFilters" class="btn btn-secondary mt-1 mr-2">More Filters <i class="fa fa-caret-right"></i> <i class="fa fa-caret-right"></i></button> -->
 
-if (isset($_SESSION['userid']) || isset($_SESSION['username'])) {
-?>
-<button id="btnOpenFilters" class="btn btn-secondary mt-1 mr-2">More Filters <i class="fa fa-caret-right"></i> <i class="fa fa-caret-right"></i></button>
-<?php
-}
-?>
 <!--login to post on pricelist-->
 </div>
-
+<div class="row py-2">
+  <div class="container-fluid mx-3">
+  <form action="" id="filterFormCategories" class="filterCategories">
+    <input type="button" value="Any" class="bg-super-4 py-1 filter filter-active filter-all">
+    <?php
+      $DBcategories = new DBH();
+      $categories = $DBcategories->getTable('product_categories')->getAll()->excecute();
+      while ($row = mysqli_fetch_array($categories)) {
+        ?>
+    <input type="button" value="<?=$row['name']; ?>" class="bg-super-4 py-1 filter">
+    <?php
+      }
+    ?>
+  </form>
+  <form action="" id="filterFormLocation" class="filterCategories d-none">
+    <input type="button" value="Any" class="bg-super-4 py-1 filter filter-active filter-all">
+    <?php
+      $DBlocation = new DBH();
+      $places = $DBlocation->getTable('theproducts')->getDistinct('place')->excecute();
+      while ($row = mysqli_fetch_array($places)) {
+        ?>
+    <input type="button" value="<?=$row['place']; ?>" class="bg-super-4 py-1 filter">
+    <?php
+      }
+    ?>
+  </form>
+  </div>
+</div>
 <div class="row">
 <div class="container-fluid">
   <form id="form_search_items">
@@ -49,66 +78,6 @@ if (isset($_SESSION['userid']) || isset($_SESSION['username'])) {
     </ul>
   </div>
 </div>
-
-<!--filters-->
-<div class="filters">
-<div class="container pb-5">
-  <a href="#" class="close">&times;</a>
-  <h2 class="header-responsive">Select filters to apply</h2>
-
-  <div class="bg-white pb-5 pl-2 pt-1">
-    <button class="btn btn-info" data-toggle="collapse" aria-expanded="true" data-target="#categories">Categories</button>
-    <div class="collapse m-2" id="categories">
-      <form id="filterFormCategories">
-        <div class="form-group">
-          <label>
-          <input type="checkbox" name="categories[]" value="any"> Any
-          </label>
-        </div>
-        <div class="form-group">
-          <label><input type="checkbox" name="categories[]" value="Education">  Education
-          </label>
-        </div>
-        <div class="form-group">
-         <label> <input type="checkbox" name="categories[]" value="Fashion and clothing"> Fashion and clothing
-         </label>
-        </div>
-      </form>
-    </div>
-    <button class="btn btn-info" data-toggle="collapse" aria-expanded="true" data-target="#location">Location</button>
-    <div class="collapse" id="location">
-    <form id="filterFormLocation">
-      <div class="form-group m-2">
-        <label>
-        <input type="checkbox" name="location[]" value="any"> Any
-      </label>
-      </div>
-      <div class="form-group">
-        <label>
-        <input type="checkbox" name="categories[]" value="Nakuru"> Nakuru
-        </label> 
-      </div>
-      <div class="form-group">
-        <label>
-          <input type="checkbox" name="categories[]" value="Nairobi"> Nairobi
-        </label> 
-      </div>
-      <div class="form-group">
-        <label>
-          <input type="checkbox" name="categories[]" value="Eldoret"> Eldoret 
-        </label>
-      </div>
-    </form>
-  </div>
-</div>
-</div>
-<div class="container-fluid pb-2 d-flex justify-content-end">
-  <button id="btnApplyFilters" class="btn btn-success">APPLY</button>
-  
-  <button id="btnResetFilters" class="btn btn-warning">Reset</button>
-</div>
-</div>
-<!--filters-->
 
 <!-- post on pricelist modal-->
 <div class="modal fade" id="modalAddToPricelist" role="modal">
@@ -202,11 +171,11 @@ if (isset($_SESSION['userid']) || isset($_SESSION['username'])) {
   </div>
 </div>
 <script>
-    tinymce.init({
-      selector: 'textarea',
-      plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-      toolbar_mode: 'floating',
-   });
+  //   tinymce.init({
+  //     selector: 'textarea',
+  //     plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+  //     toolbar_mode: 'floating',
+  //  });
   </script>
 <!--/ post on pricelist modal-->
 
@@ -305,15 +274,15 @@ $user = new User($_SESSION['userid']);
           <div class="form-group row">
             <div class=" form-group container">
               <label for="username">Name</label>
-              <input type="text" name="username" id="" value="<?php echo (isset($_SESSION['userid'])) ? $user->get('username') : '';?>" class="form-control" placeholder = "Enter your desired name">
+              <input type="text" name="username" value="<?php echo (isset($_SESSION['userid'])) ? $user->get('username') : '';?>" class="form-control" placeholder = "Enter your desired name">
             </div>
             <div class="form-group container">
             <label for="username">Phone</label>
-              <input type="text" name="phone" id="" value="<?php echo (isset($_SESSION['userid'])) ? $user->get('phone') : '';?>" class="form-control" placeholder = "Enter phone contact">
+              <input type="text" name="phone" value="<?php echo (isset($_SESSION['userid'])) ? $user->get('phone') : '';?>" class="form-control" placeholder = "Enter phone contact">
             </div>
             <div class="form-group container">
             <label for="message">Brief message to the seller</label>
-              <textarea name="" id="message" cols="30" rows="4" class="form-control">Is this still available?</textarea>
+              <textarea id="message" cols="30" rows="4" class="form-control">Is this still available?</textarea>
             </div>
           </div>
         </form>

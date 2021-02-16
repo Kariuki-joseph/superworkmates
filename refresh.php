@@ -1,7 +1,7 @@
 <!--https://stackoverflow.com/questions/11497611/php-auto-refreshing-page/11497617-->
 <?php
 $page = $_SERVER['PHP_SELF'];
-$sec = "10";
+$sec = "3";
 ?>
 <html>
     <head>
@@ -9,7 +9,23 @@ $sec = "10";
     </head>
     <body>
     <?php
-        echo "Watch the page reload itself in 10 seconds!";
+        echo "Watch the page reload itself in 3 seconds!";
+
+        $num1 = 1 + 1;
+        $num2 = 2;
+
+        if ($num1 > $num2) {
+            echo 'wrong';
+            echo 'bad math computing';
+
+        }
+        elseif ($num1 <= $num2){
+           echo 'correct';
+           echo 'good math computing';
+        }
+        else {
+            echo 'I do not know';
+        }
     ?>
     </body>
 </html>

@@ -110,7 +110,7 @@ include_once 'parts/header.php';
 </div>
 
 <div class="test">
-<button> Call Modal</button>
+<button onclick="login()"> Call Modal</button>
 </div>
 
 <!--footer-->

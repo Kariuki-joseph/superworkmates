@@ -51,12 +51,12 @@ $ifisOnline = "SELECT * FROM ifislive WHERE receiverid=?";
                 $lastSeen = $row['id'];
                 $onlineStatusChecker = $currentUnixDateTime - $lastUpdate;
 
-               if ($onlineStatusChecker >= 7) {
-                    echo 'Admin is Offline <br> Admin was Last Online at ' .$lastSeen;
+               if ($onlineStatusChecker < 7) {
+                    echo 'Admin is Online <br>';
                     exit();
                 }
-                elseif ($onlineStatusChecker < 7) {
-                    echo 'Admin is Online <br>';
+                elseif ($onlineStatusChecker >= 7) {
+                    echo 'Admin is Offline <br> Admin was Last Active on ' .$lastSeen;
                     exit();
                 }
                 

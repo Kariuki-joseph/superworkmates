@@ -30,7 +30,6 @@ $ifisOnline = "SELECT * FROM ifislive WHERE receiverid=?";
 
     $receiverid = 47;
     $currentUnixDateTime = date("U");
-    $onlineStatusChecker = $currentUnixDateTime -2;
 
             $stmt = mysqli_stmt_init ($connect);
             if(!mysqli_stmt_prepare($stmt,$ifisOnline)) {
@@ -50,19 +49,20 @@ $ifisOnline = "SELECT * FROM ifislive WHERE receiverid=?";
                 $onlineStatus = $row['readstatus'];
                 $lastUpdate = $row['theDateTime'];
                 $lastSeen = $row['id'];
+                $onlineStatusChecker = $currentUnixDateTime - $lastUpdate;
 
-               if ($lastUpdate < $onlineStatusChecker) {
-                    echo 'User is Offline <br> User was Last Online at ' .$lastSeen;
+               if ($onlineStatusChecker >= 7) {
+                    echo 'Admin is Offline <br> Admin was Last Online at ' .$lastSeen;
+                    exit();
                 }
-                elseif ($lastUpdate > $onlineStatusChecker) {
-                    echo 'User is Online <br>';
-                    echo $lastSeen;
+                elseif ($onlineStatusChecker < 7) {
+                    echo 'Admin is Online <br>';
+                    exit();
                 }
-                elseif ($lastUpdate = $onlineStatusChecker) {
-                    echo 'Last Online: ' .$lastSeen;
-                }
+                
                 else {
                     echo 'System Time Error!';
+                    exit();
                 }
                 
             }

@@ -52,7 +52,7 @@ if (isset($_SESSION['username'])) {
                             exit();
                         }
 } else {
-    echo 'user is not logged in!';
+    echo 'Admin is Offline!';
     exit();
 }
 

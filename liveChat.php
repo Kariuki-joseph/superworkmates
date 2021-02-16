@@ -7,12 +7,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
                 setInterval(function(){
-                $('#online-Status-Receiver').load('receiverauto.php');
+                $('#online-Status-Receiver').load('autoreceiver.php');
                 }, 7000) /* time in milliseconds (ie 1000 = 1 seconds)*/
     </script>
     <script>
                 setInterval(function(){
-                $('#online-Status-Sender').load('senderauto.php');
+                $('#online-Status-Sender').load('autosender.php');
                 }, 5000) /* time in milliseconds (ie 1000 = 1 seconds)*/
     </script>
     <title>Messaging</title>

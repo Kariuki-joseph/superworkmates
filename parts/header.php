@@ -30,9 +30,13 @@ session_start();
     <meta name= "description" content="This website provides methods of doing personal, business and social projects">
     <meta name="keywords" content="social projects, personal projects, business projects,how to, method, methods, workmates, superworkmates, collaborations on projects">
    <!-- <title>Superworkmates: You Don't Have To Work Alone! </title> -->
+<<<<<<< HEAD
    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+=======
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+>>>>>>> origin_joel/v1
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
-     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-grid.min.css">
     <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/mainstyles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -40,17 +44,80 @@ session_start();
   </head>
 
   <body>
-    <!--top of page - Part 1-->
+    <!--getting user profile image-->
+    <?php
+if (isset ($_SESSION ['username'])) {
+        $uid = $_SESSION['userid'];
+        require_once 'connections/dbconnect.php';
+        
+        $getprofpic = "SELECT profpic FROM theusers WHERE id = '$uid'";
+        $query = mysqli_query ($connect, $getprofpic);
+        $result = mysqli_fetch_array($query);
+        $imagename=$result['profpic'];
+}
+        ?>
+       
+<!--Top of page (header) -->
     <div class="pagetop">
       
       <div class = "topbar">
-        <div class = "top">
-          <div class = "greeting">
-            <h1 class="greeting-name">Superworkmates</h1>
+          <div class = "top1">
+              <div class = "logo">
+                <a href="index.php"> <img src="Superworkmates Logo.png" alt="Logo Not Found"> </a>
+              </div>
+            </div>
+
+            <div class = "top2">
+              <div class = "greeting">
+                <h1 class="greeting-name"><strong>Superworkmates</strong></h1>
+                <h4 class="greeting-name"><?php  if (isset ($_SESSION ['username'])) {echo $_SESSION ['username'] ."," ." ";}?>You Don't Have to Work Alone!</h4>
+              </div>
+            </div>
+
+            <div class = "top3">
+              <div class = "user-image">
+                <a href="<?php if (isset ($_SESSION ['username'])) {echo 'office.php';} else {echo 'index.php';}?>"><img src="<?php if (isset ($_SESSION ['username'])) {echo $imagename;} else {echo 'Superworkmates Logo.png';}?>" alt ="No Image Found"> </a>
+              </div>
+            </div>
+      </div>
+
+<!--phone-menu nav-->
+<div class="phone-nav-bar">
+
+      <div class="phone-menu"> <div class="phone-nav-label">&#9776 Menu</div>
+            <div class="phone-menu-nav">
+                <div class="phone-menu-nav-items">
+                      <div class="phone-nav-item"> <a href="index.php"> <div class="phone-menu-item"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">home</i> Home </div> </a> </div>
+                      <div class="phone-nav-item"> <a href="myOffice.php"> <div class="phone-menu-item"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">work</i> My Office </div> </a> </div>
+                      <div class="phone-nav-item"> <a href="liveChat.php"> <div class="phone-menu-item"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">chat</i> Live Chat </div> </a> </div>
+                      <div class="phone-nav-item"> <a href="pricelist.php"> <div class="phone-menu-item"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">local_offer</i> Price List </div> </a> </div>
+                      <div class="phone-nav-item"> <a href="equipments.php"> <div class = "phone-menu-item"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">construction</i> Equipment </div> </a> </div>
+                      <div class="phone-nav-item"> <a href="trends.php"> <div class="phone-menu-item"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">timeline</i> Trends & Tech </div> </a> </div>
+                      <div class="phone-nav-item"> <a href="about.php"> <div class="phone-menu-item"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">contact_page</i> About Us </div> </a> </div>
+                      <div class="phone-nav-item"> <?php if (isset ($_SESSION ['username'])) {echo '<a href="logout.php"> <div class="phone-menu-item"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">account_circle</i> Log Out </div> </a>';}
+                      else {echo '<a href="signup.php"> <div class="phone-menu-item"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">account_circle</i> My Account </div> </a>';}?> </div>
+                </div>
+            </div>
+      </div>
+
+      <div class="phone-user-image-title">
+        <div class="icon-and-name">
+          
+          <a href="<?php if (isset ($_SESSION ['username'])) {echo 'office.php';} else {echo 'index.php';}?>">
+          <div class="user-title">
+              <?php if (isset ($_SESSION ['username'])) {echo $_SESSION ['username'];}
+              else {echo 'Check In';}?>
           </div>
+          </a>
+          
+          <div class="image-icon">
+            <a href="office.php"> <img src="<?php if (isset ($_SESSION ['username'])) {echo $imagename;} else {echo 'Superworkmates Logo.png';}?>" alt ="No Image Found"> </a>
+          </div>
+
         </div>
-    </div>
-    
+      </div>
+
+</div>
 <!--navbar-->    
       <div class = "navbar">
               <a href="index.php"> <div class = "sehemu1"><i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">home</i> Home </div> </a>
@@ -58,11 +125,15 @@ session_start();
               <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">build</i> Projects </div> </a> 
               <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">groups</i> Workmates </div> </a>
               <a href="equipments.php"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">construction</i> Equipment </div> </a>
+             <!-- <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">build</i> Projects </div> </a> -->
+             <!-- <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">groups</i> Workmates </div> </a> -->
+              <a href="liveChat.php"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">chat</i> Live Chat </div> </a>
               <a href="pricelist.php"> <div class = "sehemu1">  <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">local_offer</i> Price List </div> </a>
-              <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">forum</i> Forums </div> </a>
+              <a href="equipments.php"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">construction</i> Equipment </div> </a>
+             <!-- <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">forum</i> Forums </div> </a> -->
              <!-- <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">class</i> Learn </div> </a> -->
               <a href="#"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">tour</i> Places </div> </a>
-              <a href="trends.php"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">timeline</i> Trends </div> </a>
+              <a href="trends.php"> <div class = "sehemu1"> <i class="material-icons" style="font-size:20px; color:rgba(255, 0, 102, 1);">timeline</i> Trends $ Tech </div> </a>
               <a href="#" data-toggle="dropdown" style="cursor: pointer;">
               <i class="fa fa-user" ></i> My Account
               <div class="dropdown">
@@ -77,7 +148,6 @@ session_start();
                 </ul>
               </div>
               </a>
-              <a href="#" style="font-size:20px; color:rgba(255, 0, 102, 1);> <div class = "sehemu1"> &#9776 </div> </a>
               
           </div>
     </div>

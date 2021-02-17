@@ -26,9 +26,10 @@ setInterval(function(){
 <?php
 require 'connections/dbconnect.php';
 /*check if user is online*/
-$ifisOnline = "SELECT * FROM ifislive WHERE receiverid=?";
+$ifisOnline = "SELECT * FROM ifislive WHERE receiverid=? AND senderid=?";
 
     $receiverid = 47;
+    $senderid = 47;
     $currentUnixDateTime = date("U");
 
             $stmt = mysqli_stmt_init ($connect);
@@ -38,7 +39,7 @@ $ifisOnline = "SELECT * FROM ifislive WHERE receiverid=?";
                     }
         
             else {
-                mysqli_stmt_bind_param($stmt, "i", $receiverid);
+                mysqli_stmt_bind_param($stmt, "ii", $receiverid, $senderid);
                 mysqli_stmt_execute ($stmt);
                 $resultUser = mysqli_stmt_get_result($stmt);
                 //$resultCheck = mysqli_stmt_num_rows ($stmt); //cannot work together with mysqli_stmt_num_rows

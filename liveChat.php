@@ -15,7 +15,7 @@
                 $('#online-Status-Sender').load('autosender.php');
                 }, 5000) /* time in milliseconds (ie 1000 = 1 seconds)*/
     </script>
-    <title>Messaging</title>
+    <title>Live Chat</title>
 </head>
 <body>
 <?php
@@ -33,7 +33,7 @@
         <h4>Receiver Part</h4>
         <div class="receiver-autoloader">
             <?php
-            echo 'Hello';
+                
             ?>
             <div id="online-Status-Receiver">
             

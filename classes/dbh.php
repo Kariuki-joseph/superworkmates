@@ -44,5 +44,33 @@ class DBH {
         $query = mysqli_query($conn,$this->sql);
         return $query;
     }
+    public function update($params, $where){
+        $sql = "UPDATE $this->table SET ";
+
+        foreach($params as $key => $value){
+        $paramsArr[] = "$key='$value'";
+        }
+        foreach ($where as $key => $value) {
+           $whereArr[] = "$key='$value'";
+        }
+        $paramsStr = implode(",", $paramsArr);
+        $whereStr = implode(",",$whereArr);
+        $sql .= $paramsStr;
+        $sql .= " WHERE ".$whereStr;
+      
+        $this->sql = $sql;
+        return $this;
+    }
+    public function delete($params){
+        $sql = "DELETE FROM $this->table WHERE ";
+        foreach ($params as $key => $value) {
+            $argsArr[] = "$key='$value'";
+        }
+        $argsStr = implode(" AND ", $argsArr);
+        $sql .= $argsStr;
+
+        $this->sql = $sql;
+        return $this;
+    }
 }
 ?>

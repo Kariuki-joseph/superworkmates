@@ -2,6 +2,8 @@
 if (isset ($_POST ["submit"])) {
 
     require_once '../classes/db.php';
+    require_once 'dbconnect.php';
+    
     $emailphone =  mysqli_real_escape_string($connect, $_POST['email_phone']);
     $password =  mysqli_real_escape_string($connect, $_POST['password']);
 

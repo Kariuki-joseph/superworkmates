@@ -33,7 +33,7 @@ form.addEventListener('submit',(e)=>{
     //capture form data 
     let formData = new FormData(form);
     fetch('processUpdateUserDetails.php',{
-        method: "GET",
+        method: "POST",
         body: formData
     }).then(response=>response.json())
     .then(response=>{

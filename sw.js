@@ -18,6 +18,11 @@ self.addEventListener('activate',(e)=>{
 });
 
 self.addEventListener('fetch', (e)=>{
+    //cache not post requests
+    if(e.request.method == 'POST'){
+        return;
+    }
+
     e.respondWith(
         fetch(e.request).then(response=>{
             console.log("Fetching from online");

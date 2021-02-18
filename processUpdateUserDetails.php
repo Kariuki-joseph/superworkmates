@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'classes/db.php';
 require_once 'classes/dbh.php';
 
@@ -6,13 +7,14 @@ require_once 'classes/dbh.php';
 $username = mysqli_real_escape_string(MainUsers::conn(),$_POST['username']);
 $email = mysqli_real_escape_string(MainUsers::conn(),$_POST['email']);
 $phone = mysqli_real_escape_string(MainUsers::conn(),$_POST['phone']);
+$id = $_SESSION['userid'];
 
 $dbh = new DBH();
 $update = $dbh->getTable('theusers')->update([
     'username'=>$username,
     'email'=>$email,
     'phone'=>$phone
-]);
+], ['id'=>$id]);
 
 if($update->excecute()){
     echo json_encode(array(

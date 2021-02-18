@@ -30,11 +30,7 @@ session_start();
     <meta name= "description" content="This website provides methods of doing personal, business and social projects">
     <meta name="keywords" content="social projects, personal projects, business projects,how to, method, methods, workmates, superworkmates, collaborations on projects">
    <!-- <title>Superworkmates: You Don't Have To Work Alone! </title> -->
-<<<<<<< HEAD
    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
-=======
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
->>>>>>> origin_joel/v1
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-grid.min.css">
     <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
@@ -143,6 +139,7 @@ if (isset ($_SESSION ['username'])) {
                   <li class="dropdown-divider"></li>
                   <li class="dropdown-item" onclick="goTo('signup.php')">Register <i class="fa fa-user-plus"></i></li>
                   <?php }else{ ?>
+                    <li class="dropdown-item" onclick="goTo('my-account.php')">Manage My Account <i class="fa fa-edit"></i></li>
                     <li class="dropdown-item" onclick="logout()">Logout <i class="fa fa-sign-out"></i></li>
                     <?php }?>
                 </ul>

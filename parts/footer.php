@@ -46,7 +46,6 @@
             <p> 2020 - 2021 </p>
               <div class="line"></div>
            <p>You Don't Have To Work Alone!</p>
-            
         </div>
       </footer>
     </div>

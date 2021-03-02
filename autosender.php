@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
 <?php
 //include_once 'parts/header.php';
 
 ?>
-    <p>Sent Message is here</p>
+    <p class="pl-4">Sent Message is here</p>
 
 <?php
 require 'connections/dbconnect.php';
@@ -39,8 +32,7 @@ if (isset($_SESSION['username'])) {
                         if(!mysqli_stmt_prepare($stmt, $trigger)) {
                         // header ("Location: refresh.php?error=sqlregerror");
                             exit();
-                                }
-                
+                        }
                         else {
                             $senderid =$_SESSION ['userid'];
                             $receiverid = 47;
@@ -57,6 +49,3 @@ if (isset($_SESSION['username'])) {
 }
 
 ?>
-
-</body>
-</html>

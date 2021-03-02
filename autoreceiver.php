@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
 <!--javascript page reload -->
 <!--<script language="javascript">
     setInterval(function(){
@@ -34,7 +27,7 @@ $ifisOnline = "SELECT * FROM ifislive WHERE receiverid=? AND senderid=?";
 
             $stmt = mysqli_stmt_init ($connect);
             if(!mysqli_stmt_prepare($stmt,$ifisOnline)) {
-                header ("Location: refresh.php?error=sqlerror");
+                // header ("Location: refresh.php?error=sqlerror");
                 exit();
                     }
         
@@ -92,6 +85,3 @@ $ifisOnline = "SELECT * FROM ifislive WHERE receiverid=? AND senderid=?";
 /*$timezone = date_default_timezone_get();
 echo "The current server timezone is: " . $timezone;*/
 ?>
-
-</body>
-</html>

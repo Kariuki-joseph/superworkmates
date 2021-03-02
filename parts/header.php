@@ -36,13 +36,12 @@ session_start();
     <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/mainstyles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  
   </head>
 
   <body>
     <!--getting user profile image-->
     <?php
-if (isset ($_SESSION ['username'])) {
+if (isset ($_SESSION ['username']) || isset($_SESSION['userid'])) {
         $uid = $_SESSION['userid'];
         require_once 'connections/dbconnect.php';
         
@@ -177,6 +176,7 @@ if (isset ($_SESSION ['username'])) {
             </div>
           </div>
           <div class="modal-footer">
+          <a href="resetPassword.php">Forgot password?</a>
           <a href="signup.php" style="cursor: pointer;">Don't have an account? Register here</a>
           <script>
           //login

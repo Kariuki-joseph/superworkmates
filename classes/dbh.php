@@ -14,10 +14,10 @@ class DBH {
             return $this;
         }elseif(is_array($params)){
             foreach ($params as $key => $value) {
-                $keys[] = $key;
-                $vals[] = $value;
+                $argsArr[] = "$key='$value'";
             }    
-        $sql = "SELECT * FROM $this->table WHERE $keys[0] = '$vals[0]'";
+        $argsStr = implode(" AND ",$argsArr);
+        $sql = "SELECT * FROM $this->table WHERE $argsStr";
         $this->sql = $sql;
         return $this;
         }

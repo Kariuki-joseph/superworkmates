@@ -17,6 +17,18 @@ self.addEventListener('activate',(e)=>{
     })
 });
 
+/*
+//request data to persist
+navigator.storage.persist().then((granted)=>{
+    if(granted){
+        //data will persisit
+        console.log('Data will now persist');
+    }else{
+        console.log("Storage request rejected");
+    }
+})
+*/
+
 self.addEventListener('fetch', (e)=>{
     //cache not post requests
     if(e.request.method == 'POST'){

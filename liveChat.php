@@ -32,21 +32,24 @@
         <div class="col-sm-12">
             <ul class="users">
                 <?php 
+                if (isset($_SESSION['userid'])) {
+                //get users
                 $DBUsers = new DBH();
-                $users = $DBUsers->getTable('chats');
-
+                $users = $DBUsers->getTable('theusers')->getAll()->excecute();
+                $index=0;
+                $currentUser = $_SESSION['userid'];
+                while ($user = mysqli_fetch_array($users)) {
+                    $index++;
+                    if($user['id'] == $currentUser){
+                        continue;
+                    }
                 ?>
-                <li class="user user-active bg-super-9" data-userId="48">Joseph Njenga</li>
-                <li class="user bg-super-9" data-userId="11">Joel</li>
-                <li class="user bg-super-9" data-userId="49">Mwaniki Simon</li>
-                <li class="user bg-super-9" data-userId="4">Esther Nyokabi</li>
-                <li class="user bg-super-9" data-userId="5">Jane Muthoni</li>
-                <li class="user bg-super-9" data-userId="6">Ruth Wamuyu</li>
-                <li class="user bg-super-9" data-userId="7">John Maina</li>
-                <li class="user bg-super-9" data-userId="8">Esther Nyokabi</li>
-                <li class="user bg-super-9" data-userId="9">Jane Muthoni</li>
-                <li class="user bg-super-9" data-userId="10">Ruth Wamuyu</li>
-                <li class="user bg-super-9" data-userId="11">John Maina</li>
+                <li class="user <?=$index == 1 ? "user-active":"";?> bg-super-9" data-userId="<?=$user['id'];?>"><?=$user['username'];?></li>
+                <?php
+            }
+                }
+                ?>
+
             </ul>
         </div>
         <div class="col-sm-12">

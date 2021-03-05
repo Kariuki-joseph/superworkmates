@@ -158,7 +158,7 @@ function addFilters(filterCategory,filterValue){
 			}			
 		}
 	}else{
-		if(filterValue != 'Any' && filterCategory.indexOf(filterValue) == -1){
+		if(filterValue != 'All' && filterCategory.indexOf(filterValue) == -1){
 			filterCategory.push(filterValue);
 		}
 	}
@@ -216,7 +216,7 @@ function revokeBuyListeners(){
 			let buyerDetails = new FormData(_('#formBuyItem'));
 			buyerDetails.append('item',itemName);
 			buyerDetails.append('sellerId', sellerId);
-			// buyerDetails.append('message',tinyMCE.get('message').getContent());
+			buyerDetails.append('message',tinyMCE.get('message').getContent());
 			buyerDetails.append('buy-item','true');
 
 			fetch('buy-product-mailer.php', {
@@ -350,8 +350,8 @@ $('#formAddPricelistEntry').on('submit',(e)=>{
 	//capture form data 
 	const formData = new FormData(_('#formAddPricelistEntry'));
 	formData.append("images",images.toString());
-	// formData.append("description",tinyMCE.get('description').getContent());
-	// formData.append("uses",tinyMCE.get('uses').getContent());
+	formData.append("description",tinyMCE.get('description').getContent());
+	formData.append("uses",tinyMCE.get('uses').getContent());
 	//send data
 	let postDataURL = "connections/pricelistpost.php";
 	let options = {
@@ -385,7 +385,7 @@ $('#filterFormCategories').on('click',(e)=>{
 (e.target.classList.contains('filter') && !e.target.classList.contains('filter-all')) ? e.target.classList.toggle('filter-active'): '';
 e.target.parentNode.querySelectorAll('input').forEach(input=>!input.classList.contains('filter-active') ? e.target.parentNode.querySelector('.filter-all').classList.remove('filter-active') : '');
 (e.target.classList.contains('filter-all')) ? e.target.parentNode.querySelectorAll('input').forEach(inp=>inp.classList.add('filter-active')) : '';
-(input == 'Any') ? addFilters(categoriesFilters,_A('#filterFormCategories input')) : addFilters(categoriesFilters,input);
+(input == 'All') ? addFilters(categoriesFilters,_A('#filterFormCategories input')) : addFilters(categoriesFilters,input);
 //remove array item if exists in the array
 elems.forEach(elem=>!elem.classList.contains('filter-active') ? removeFilters(categoriesFilters, elem.value) : '');
 
@@ -401,7 +401,7 @@ $('#filterFormLocation').on('click',(e)=>{
 	(e.target.classList.contains('filter') && !e.target.classList.contains('filter-all')) ? e.target.classList.toggle('filter-active'): '';
 	e.target.parentNode.querySelectorAll('input').forEach(input=>!input.classList.contains('filter-active') ? e.target.parentNode.querySelector('.filter-all').classList.remove('filter-active') : '');
 	(e.target.classList.contains('filter-all')) ? e.target.parentNode.querySelectorAll('input').forEach(inp=>inp.classList.add('filter-active')) : '';
-	(input == 'Any') ? addFilters(locationFilters,_A('#filterFormLocation input')) : addFilters(locationFilters,input);
+	(input == 'All') ? addFilters(locationFilters,_A('#filterFormLocation input')) : addFilters(locationFilters,input);
 	//remove array item if exists in the array
 	elems.forEach(elem=>!elem.classList.contains('filter-active') ? removeFilters(locationFilters, elem.value) : '');
 

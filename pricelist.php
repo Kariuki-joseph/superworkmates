@@ -4,7 +4,7 @@
 <head>      
 <link rel="stylesheet" href="css/priceliststyles.css">
 <title>Price List | Anything Anywhere </title>
-<!-- <script src="https://cdn.tiny.cloud/1/xblvkgkykovpyemtrb2qyxjg7048tcugw1vv0ewykk46kv57/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
+<script src="https://cdn.tiny.cloud/1/xblvkgkykovpyemtrb2qyxjg7048tcugw1vv0ewykk46kv57/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 <body>
 
@@ -38,20 +38,22 @@ require_once 'classes/dbh.php';
 </div>
 <div class="row py-2">
   <div class="container-fluid mx-3">
-  <form action="" id="filterFormCategories" class="filterCategories">
-    <input type="button" value="Any" class="bg-super-4 py-1 filter filter-active filter-all">
-    <?php
-      $DBcategories = new DBH();
-      $categories = $DBcategories->getTable('product_categories')->getAll()->excecute();
-      while ($row = mysqli_fetch_array($categories)) {
+    <div class="categories-wrapper">
+      <form action="" id="filterFormCategories" class="filterCategories">
+        <input type="button" value="All" class="bg-super-4 py-1 filter filter-active filter-all">
+        <?php
+          $DBcategories = new DBH();
+          $categories = $DBcategories->getTable('theproducts')->getDistinct('category')->excecute();
+          while ($row = mysqli_fetch_array($categories)) {
+            ?>
+        <input type="button" value="<?=$row['category']; ?>" class="bg-super-4 py-1 filter">
+        <?php
+          }
         ?>
-    <input type="button" value="<?=$row['name']; ?>" class="bg-super-4 py-1 filter">
-    <?php
-      }
-    ?>
-  </form>
+      </form>
+  </div>
   <form action="" id="filterFormLocation" class="filterCategories d-none">
-    <input type="button" value="Any" class="bg-super-4 py-1 filter filter-active filter-all">
+    <input type="button" value="All" class="bg-super-4 py-1 filter filter-active filter-all">
     <?php
       $DBlocation = new DBH();
       $places = $DBlocation->getTable('theproducts')->getDistinct('place')->excecute();
@@ -171,10 +173,10 @@ require_once 'classes/dbh.php';
   </div>
 </div>
 <script>
-  //   tinymce.init({
-  //     selector: 'textarea',
-  //     plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-  //     toolbar_mode: 'floating',
+    tinymce.init({
+      selector: 'textarea',
+      plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+      toolbar_mode: 'floating',
   //  });
   </script>
 <!--/ post on pricelist modal-->

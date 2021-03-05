@@ -5,23 +5,25 @@ require_once 'classes/dbh.php';
 if (isset($_SESSION['userid']) || isset($_SESSION['username'])) {
 $sender = $_SESSION['userid'];
 $receiver = $_GET['receiver'];
+$currentUser = $sender;
 
-$DBGetChats = new DBH();
-$chats = $DBGetChats->getTable('chats')->getAll([
-'sender'=>$sender,
-'receiver'=>$receiver
-])->excecute();
+$sql = "SELECT * FROM chats WHERE sender='$sender' AND receiver='$receiver' OR sender='$receiver' AND receiver='$sender' ORDER BY time asc";
+$chats = mysqli_query(MainUsers::conn(), $sql);
 
-$response=[];
+
+$messages=[];
 while($row = mysqli_fetch_array($chats)) {
-	array_push($response, array(
+	//message status for styling the messages - sent and received messages
+	$msgStats = $row['sender'] == $currentUser ? 'receiver' : 'sender';
+	array_push($messages, array(
 		'sender' => $row['sender'],
 		'receiver' => $row['receiver'],
-		'message' => $row['message']
+		'message' => $row['message'],
+		'status' => $msgStats
 		));
 }
 
-echo json_encode($response);
+echo json_encode($messages);
 return;
 }
 

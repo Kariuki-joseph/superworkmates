@@ -13,7 +13,7 @@ function clearInput(){
 }
 //scroll to last chat
 function scrollToLastChat(){
- document.querySelector('.messages').scrollTo(0, 10000000000);
+ document.querySelector('.messages').scrollTo(0, 1e10);
 }
 
 //add chat into the chats before sending to the server
@@ -51,7 +51,7 @@ for (var i = 0; i < messages.length; i++) {
     let message = messages[i];
     li +=
     `
-    <li class="message message-receiver">${message.message}</li>
+    <li class="message message-${message.status}">${message.message}</li>
     `
 }
 //clear existing chats
@@ -97,7 +97,6 @@ btnSend.addEventListener('click', ()=>{
 function getChats(receiver){
     fetch('processGetChats.php?receiver='+receiver)
     .then(response=>response.json()).then(messages=>{
-        console.log(messages);
         setMessages(messages);
     }).catch(err=>console.log(err));
 }
